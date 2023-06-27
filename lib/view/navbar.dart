@@ -1,7 +1,7 @@
 import 'package:ani_going/services/variable.dart';
 import 'package:ani_going/view/home_page.dart';
 import 'package:ani_going/view/mylist_page.dart';
-import 'package:ani_going/view/profile_page.dart';
+import 'package:ani_going/view/setting_page.dart';
 import 'package:flutter/material.dart';
 import 'package:ani_going/controller/navbar_controller.dart';
 import 'package:flutter/services.dart';
@@ -12,8 +12,8 @@ class Navbar extends GetView<NavbarController> {
 
   final pages = [
     HomePage(),
-    MyList(),
-    ProfilePage(),
+    MyListPage(),
+    SettingPage(),
   ];
 
   @override
@@ -41,11 +41,11 @@ class Navbar extends GetView<NavbarController> {
                     () => BottomNavigationBar(
                       items: const [
                         BottomNavigationBarItem(
-                            icon: Icon(Icons.home), label: 'home'),
+                            icon: Icon(Icons.home), label: 'Home'),
                         BottomNavigationBarItem(
-                            icon: Icon(Icons.bookmark), label: 'my list'),
+                            icon: Icon(Icons.bookmark), label: 'My list'),
                         BottomNavigationBarItem(
-                            icon: Icon(Icons.settings), label: 'profile'),
+                            icon: Icon(Icons.settings), label: 'Profile'),
                       ],
                       currentIndex: controller.selectedIndex.value,
                       backgroundColor: Colors.black.withOpacity(0.20),

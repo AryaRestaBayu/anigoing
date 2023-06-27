@@ -6,9 +6,10 @@ class AnimeOngoing {
   String trailer;
   dynamic score;
   int episode;
-  int year;
-
   String type;
+  int day;
+  int month;
+  int year;
 
   AnimeOngoing({
     required this.imageUrl,
@@ -18,8 +19,10 @@ class AnimeOngoing {
     required this.trailer,
     required this.score,
     required this.episode,
-    required this.year,
     required this.type,
+    required this.day,
+    required this.month,
+    required this.year,
   });
 
   factory AnimeOngoing.fromJson(Map<String, dynamic> json) {
@@ -31,8 +34,10 @@ class AnimeOngoing {
       trailer: json['trailer']['url'] ?? '-',
       score: json['score'] ?? 0,
       episode: json['episodes'] ?? 0,
-      year: json['year'] ?? 0,
       type: json['type'] ?? '-',
+      day: json['aired']['prop']['from']['day'] ?? 0,
+      month: json['aired']['prop']['from']['month'] ?? 0,
+      year: json['aired']['prop']['from']['year'] ?? 0,
     );
   }
 }

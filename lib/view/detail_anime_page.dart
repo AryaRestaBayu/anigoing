@@ -2,6 +2,8 @@ import 'package:ani_going/controller/player_controller.dart';
 import 'package:ani_going/model/anime_ongoing_model.dart';
 import 'package:ani_going/model/anime_upcoming_model.dart';
 import 'package:ani_going/services/variable.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pod_player/pod_player.dart';
@@ -38,7 +40,7 @@ class DetailAnimePage extends StatelessWidget {
             autoPlay: false,
             isLooping: false,
           ),
-          playVideoFrom: PlayVideoFrom.youtube(animeUpcoming!.trailer!),
+          playVideoFrom: PlayVideoFrom.youtube(animeUpcoming!.trailer),
         )..initialise();
         print(animeUpcoming.trailer);
       }
@@ -83,6 +85,61 @@ class DetailAnimePage extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      SizedBox(
+                        height: sizeHeight * 0.03,
+                      ),
+                      //add my list
+                      ElevatedButton(
+                          onPressed: () {
+                            try {
+                              isOngoing
+                                  ? FirebaseFirestore.instance
+                                      .collection('users')
+                                      .doc(FirebaseAuth
+                                          .instance.currentUser!.uid)
+                                      .collection('mylist')
+                                      .doc(animeOngoing!.title)
+                                      .set({
+                                      'uid': FirebaseAuth
+                                          .instance.currentUser!.uid,
+                                      'image_url': animeOngoing.imageUrl,
+                                      'title': animeOngoing.title,
+                                      'synopsis': animeOngoing.synopsis,
+                                      'genre': animeOngoing.genre,
+                                      'trailer': animeOngoing.trailer,
+                                      'score': animeOngoing.score,
+                                      'episode': animeOngoing.episode,
+                                      'day': animeOngoing.day,
+                                      'month': animeOngoing.month,
+                                      'year': animeOngoing.year,
+                                      'type': animeOngoing.type,
+                                    })
+                                  : FirebaseFirestore.instance
+                                      .collection('users')
+                                      .doc(FirebaseAuth
+                                          .instance.currentUser!.uid)
+                                      .collection('mylist')
+                                      .doc(animeUpcoming!.title)
+                                      .set({
+                                      'uid': FirebaseAuth
+                                          .instance.currentUser!.uid,
+                                      'image_url': animeUpcoming.imageUrl,
+                                      'title': animeUpcoming.title,
+                                      'synopsis': animeUpcoming.synopsis,
+                                      'genre': animeUpcoming.genre,
+                                      'trailer': animeUpcoming.trailer,
+                                      'score': animeUpcoming.score,
+                                      'episode': animeUpcoming.episode,
+                                      'type': animeUpcoming.type,
+                                      'day': animeUpcoming.day,
+                                      'month': animeUpcoming.month,
+                                      'year': animeUpcoming.year,
+                                    });
+                            } on FirebaseException catch (e) {
+                              Get.snackbar('title', e.toString());
+                            }
+                          },
+                          child: Text('data')),
                       SizedBox(
                         height: sizeHeight * 0.03,
                       ),

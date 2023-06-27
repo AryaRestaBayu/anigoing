@@ -122,9 +122,7 @@ class SeeAllPage extends StatelessWidget {
                                     ),
                                     Text(
                                       isOngoing
-                                          ? animeOngoing.year == 0
-                                              ? '-'
-                                              : animeOngoing.year.toString()
+                                          ? '${animeOngoing.day}-${animeOngoing.month}-${animeOngoing.year}'
                                           : '${animeUpcoming.day}-${animeUpcoming.month}-${animeUpcoming.year}',
                                       style: TextStyle(color: PColor.accent),
                                     ),

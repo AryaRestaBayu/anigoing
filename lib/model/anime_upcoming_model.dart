@@ -4,6 +4,7 @@ class AnimeUpcoming {
   String synopsis;
   List genre;
   String trailer;
+  dynamic score;
   int episode;
   String type;
   int day;
@@ -16,6 +17,7 @@ class AnimeUpcoming {
     required this.synopsis,
     required this.genre,
     required this.trailer,
+    required this.score,
     required this.episode,
     required this.type,
     required this.day,
@@ -30,6 +32,7 @@ class AnimeUpcoming {
       synopsis: json['synopsis'] ?? '-',
       genre: json['genres'] ?? '-',
       trailer: json['trailer']['url'] ?? '-',
+      score: json['score'] ?? 0,
       episode: json['episodes'] ?? 0,
       type: json['type'] ?? '-',
       day: json['aired']['prop']['from']['day'] ?? 0,

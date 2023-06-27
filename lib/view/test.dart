@@ -1,35 +1,34 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class TestPage extends StatelessWidget {
-  const TestPage({super.key});
+  signInWithGoogle() async {
+    final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
+
+    final GoogleSignInAuthentication gAuth = await gUser!.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: gAuth.accessToken,
+      idToken: gAuth.idToken,
+    );
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final List list = [
-      {
-        "mal_id": 4,
-        "type": "anime",
-        "name": "Comedy",
-        "url": "https://myanimelist.net/anime/genre/4/Comedy"
-      },
-      // {
-      //   "mal_id": 10,
-      //   "type": "anime",
-      //   "name": "Fantasy",
-      //   "url": "https://myanimelist.net/anime/genre/10/Fantasy"
-      // }
-    ];
     return Scaffold(
-      body: ListView.builder(
-          itemCount: 2,
-          itemBuilder: (context, index) {
-            if (index < list.length) {
-              String name = list[index]['name'];
-              return Text(name);
-            } else {
-              return Text('kosong');
-            }
-          }),
+      appBar: AppBar(
+        title: Text('Google Sign In'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            signInWithGoogle();
+          },
+          child: Text('Login dengan Google'),
+        ),
+      ),
     );
   }
 }

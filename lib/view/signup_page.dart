@@ -4,12 +4,14 @@ import 'package:ani_going/services/variable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({Key? key}) : super(key: key);
+class SignUpPage extends StatelessWidget {
+  SignUpPage({Key? key}) : super(key: key);
 
   final AuthController authController = Get.find<AuthController>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
   final RxBool isVisible = true.obs;
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class LoginPage extends StatelessWidget {
           Center(
             child: Container(
               // color: Colors.white,
-              height: sizeHeight * 0.70,
+              height: sizeHeight * 0.75,
               width: sizeWidth * .85,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -45,7 +47,7 @@ class LoginPage extends StatelessWidget {
                   //google
                   ElevatedButton(
                     onPressed: () {
-                      AuthController().signInWithGoogle();
+                      authController.signInWithGoogle();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,
@@ -131,6 +133,7 @@ class LoginPage extends StatelessWidget {
                               vertical: sizeHeight * 0.025,
                             ),
                           ))),
+                  //password
                   Container(
                       width: sizeWidth * .85,
                       height: sizeHeight * .08,
@@ -143,6 +146,7 @@ class LoginPage extends StatelessWidget {
                       ),
                       child: Obx(() => TextField(
                           controller: passwordController,
+                          textInputAction: TextInputAction.next,
                           cursorColor: PColor.primary,
                           obscureText: isVisible.value ? true : false,
                           style: TextStyle(color: Colors.white),
@@ -156,19 +160,60 @@ class LoginPage extends StatelessWidget {
                               color: PColor.accent,
                               size: sizeWidth * .07,
                             ),
-                            suffixIcon: IconButton(
-                                onPressed: () {
-                                  isVisible.value = !isVisible.value;
-                                },
-                                icon: isVisible.value == true
-                                    ? Icon(
-                                        Icons.visibility_off_outlined,
-                                        color: PColor.accent,
-                                      )
-                                    : Icon(
-                                        Icons.visibility_outlined,
-                                        color: PColor.accent,
-                                      )),
+                            suffixIcon: GestureDetector(
+                              onTap: () {
+                                isVisible.value = !isVisible.value;
+                              },
+                              child: Icon(
+                                  isVisible.value == true
+                                      ? Icons.visibility_off_outlined
+                                      : Icons.visibility_outlined,
+                                  color: PColor.accent,
+                                  size: sizeWidth * .07),
+                            ),
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.symmetric(
+                              vertical: sizeHeight * 0.025,
+                            ),
+                          )))),
+                  //confirm password
+                  Container(
+                      width: sizeWidth * .85,
+                      height: sizeHeight * .08,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          border: Border.all(color: PColor.primary)),
+                      padding: EdgeInsets.only(
+                        left: sizeWidth * .03,
+                        right: sizeWidth * .03,
+                      ),
+                      child: Obx(() => TextField(
+                          controller: confirmPasswordController,
+                          textInputAction: TextInputAction.done,
+                          cursorColor: PColor.primary,
+                          obscureText: isVisible.value ? true : false,
+                          style: TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                            hintText: 'Confirm Password',
+                            hintStyle: TextStyle(
+                                color: PColor.accent,
+                                fontSize: sizeWidth * .04),
+                            prefixIcon: Icon(
+                              Icons.lock_outline,
+                              color: PColor.accent,
+                              size: sizeWidth * .07,
+                            ),
+                            suffixIcon: GestureDetector(
+                              onTap: () {
+                                isVisible.value = !isVisible.value;
+                              },
+                              child: Icon(
+                                  isVisible.value == true
+                                      ? Icons.visibility_off_outlined
+                                      : Icons.visibility_outlined,
+                                  color: PColor.accent,
+                                  size: sizeWidth * .07),
+                            ),
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.symmetric(
                               vertical: sizeHeight * 0.025,
@@ -178,12 +223,18 @@ class LoginPage extends StatelessWidget {
                     padding: EdgeInsets.only(top: sizeHeight * .02),
                     child: ElevatedButton(
                       onPressed: () {
-                        authController.signInWithEmail(
+                        if (passwordController.text !=
+                            confirmPasswordController.text) {
+                          Get.snackbar('title', 'message');
+                          return;
+                        }
+
+                        authController.signUpWithEmail(
                             emailController.text.trim(),
                             passwordController.text.trim());
                       },
                       child: Text(
-                        'Login',
+                        'Sign Up',
                         style: TextStyle(
                             color: Colors.black, fontSize: sizeWidth * .04),
                       ),
@@ -195,26 +246,17 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: sizeHeight * .02),
-                    child: Center(
-                      child: Text(
-                        'Forgot Password?',
-                        style: TextStyle(color: PColor.primary, fontSize: 14),
-                      ),
-                    ),
-                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Don`t have an account? ',
+                        'Already have an account? ',
                         style: TextStyle(color: PColor.accent, fontSize: 13),
                       ),
                       GestureDetector(
-                        onTap: () => Get.offNamed(AppRoutes.signUpPage),
+                        onTap: () => Get.offNamed(AppRoutes.loginPage),
                         child: Text(
-                          'Sign Up',
+                          'Login',
                           style: TextStyle(color: PColor.primary, fontSize: 13),
                         ),
                       )
@@ -228,7 +270,7 @@ class LoginPage extends StatelessWidget {
             top: sizeHeight * .09,
             left: sizeWidth * 0.07,
             child: Text(
-              'Login',
+              'Sign Up',
               style: TextStyle(color: Colors.white, fontSize: sizeWidth * .06),
             ),
           )
