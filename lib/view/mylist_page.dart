@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MyListPage extends StatelessWidget {
-  const MyListPage({super.key});
+  MyListPage({Key? key}) : super(key: key);
+
+  final myListControl = Get.find<MyListController>();
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +21,14 @@ class MyListPage extends StatelessWidget {
         backgroundColor: Colors.black,
         body: Padding(
           padding: EdgeInsets.only(
-              top: sizeHeight * 0.02,
-              left: sizeWidth * 0.05,
-              right: sizeWidth * 0.05),
+            top: sizeHeight * 0.02,
+            left: sizeWidth * 0.05,
+            right: sizeWidth * 0.05,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                // color: Colors.red,
                 height: sizeHeight * 0.07,
                 child: Text(
                   'My List',
@@ -34,88 +36,99 @@ class MyListPage extends StatelessWidget {
                 ),
               ),
               Expanded(
-                  child: GetBuilder<MyListController>(
-                      init: MyListController(
-                          //change value uid to uid current user
-                          uid: FirebaseAuth.instance.currentUser!.uid),
-                      builder: (controller) {
-                        return ListView.builder(
-                            itemCount: controller.myList.length,
-                            itemBuilder: (context, index) {
-                              MyList myList = controller.myList[index];
+                child: StreamBuilder<List<MyList>>(
+                  stream: myListControl.getMyList(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      List<MyList>? myList = snapshot.data;
+                      return ListView.builder(
+                        itemCount: myList!.length,
+                        itemBuilder: (context, index) {
+                          MyList myListItem = myList[index];
 
-                              return GestureDetector(
-                                onTap: () {
-                                  Get.toNamed(AppRoutes.detailAnimePage,
-                                      arguments: myList);
-                                },
-                                child: Padding(
-                                  padding:
-                                      EdgeInsets.only(bottom: sizeHeight * .02),
-                                  child: Row(
-                                    children: [
-                                      //image
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(20)),
-                                        child: Container(
-                                          width: sizeWidth * .35,
-                                          height: sizeHeight * .25,
-                                          child: Image.network(
-                                            myList.imageUrl,
-                                            fit: BoxFit.cover,
+                          return GestureDetector(
+                            onTap: () {
+                              Get.toNamed(
+                                AppRoutes.detailAnimePage,
+                                arguments: myListItem,
+                              );
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                bottom: sizeHeight * .02,
+                              ),
+                              child: Row(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(20),
+                                    ),
+                                    child: Container(
+                                      width: sizeWidth * .35,
+                                      height: sizeHeight * .25,
+                                      child: Image.network(
+                                        myListItem.imageUrl,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: sizeWidth * .05,
+                                  ),
+                                  Container(
+                                    width: sizeWidth * .50,
+                                    height: sizeHeight * .25,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text(
+                                          myListItem.title,
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: sizeWidth * 0.05,
+                                            overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width: sizeWidth * .05,
-                                      ),
-                                      //detail
-                                      Container(
-                                        width: sizeWidth * .50,
-                                        height: sizeHeight * .25,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            //title
-                                            Text(
-                                              myList.title,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: sizeWidth * 0.05,
-                                                  overflow:
-                                                      TextOverflow.ellipsis),
-                                            ),
-                                            Text(
-                                              myList.episode.toString() +
-                                                  ' Episodes',
-                                              style: TextStyle(
-                                                color: PColor.accent,
-                                              ),
-                                            ),
-                                            Text(
-                                              myList.type,
-                                              style: TextStyle(
-                                                  color: PColor.accent),
-                                            ),
-                                            Text(
-                                              '${myList.day}-${myList.month}-${myList.year}',
-                                              style: TextStyle(
-                                                  color: PColor.accent),
-                                            ),
-                                          ],
+                                        Text(
+                                          myListItem.episode.toString() +
+                                              ' Episodes',
+                                          style: TextStyle(
+                                            color: PColor.accent,
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                        Text(
+                                          myListItem.type,
+                                          style: TextStyle(
+                                            color: PColor.accent,
+                                          ),
+                                        ),
+                                        Text(
+                                          '${myListItem.day}-${myListItem.month}-${myListItem.year}',
+                                          style: TextStyle(
+                                            color: PColor.accent,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            });
-                      }))
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else {
+                      return CircularProgressIndicator();
+                    }
+                  },
+                ),
+              ),
             ],
           ),
         ),

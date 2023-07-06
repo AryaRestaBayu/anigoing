@@ -1,5 +1,6 @@
 import 'package:ani_going/controller/bindings/anime_api_binding.dart';
 import 'package:ani_going/controller/bindings/auth_binding.dart';
+import 'package:ani_going/controller/bindings/mylist_binding.dart';
 import 'package:ani_going/controller/bindings/navbar_binding.dart';
 import 'package:ani_going/controller/bindings/player_binding.dart';
 import 'package:ani_going/view/detail_anime_page.dart';
@@ -24,6 +25,7 @@ class AppRoutes {
       bindings: [
         NavbarBinding(),
         AnimeApiBinding(),
+        MyListBinding(),
       ],
     ),
     GetPage(

@@ -1,51 +1,40 @@
-import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class MyListWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('nama_koleksi').snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        }
+void sendPostRequest() async {
+  var url = Uri.parse('https://mockbin.org/bin/2cf10def-2ee2-40b4-b9f6-fc14ff0d9bd8/view');
 
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
-        }
+  // Menentukan header
+  Map<String, String> headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer your_access_token',
+  };
 
-        return ListView.builder(
-          itemCount: snapshot.data!.docs.length,
-          itemBuilder: (BuildContext context, int index) {
-            var document = snapshot.data!.docs[index].data();
-            // Ambil nilai-nilai field dari dokumen
-            var episode = document['episode'];
-            var genre = document['genre'];
-            var malId = document['mal_id'];
-            var name = document['name'];
-            var type = document['type'];
-            var url = document['url'];
-            var imageUrl = document['image_url'];
-            var score = document['score'];
-            var synopsis = document['synopsis'];
-            var title = document['title'];
-            var trailer = document['trailer'];
+  // Menentukan body
+  Map<String, dynamic> body = {
+    'name': 'John Doe',
+    'email': 'johndoe@example.com',
+    'password': 'secret123',
+  };
 
-            // Tampilkan nilai-nilai field dalam widget Card atau ListTile
-            return Card(
-              child: ListTile(
-                leading: Image.network(imageUrl),
-                title: Text(title),
-                subtitle: Text(synopsis),
-                onTap: () {
-                  // Lakukan sesuatu ketika item diklik
-                },
-              ),
-            );
-          },
-        );
-      },
-    );
+  // Melakukan HTTP POST request
+  var response = await http.post(url, headers: headers, body: jsonEncode(body));
+
+  // Mengecek status kode response
+  if (response.statusCode == 200) {
+    // Mengonversi responsenya menjadi JSON
+    var responseData = jsonDecode(response.body);
+
+    // Mengakses data yang diperlukan dari response
+    var id = responseData['id'];
+    var name = responseData['name'];
+    var email = responseData['email'];
+
+    // Menampilkan data
+    print('ID: $id');
+    print('Name: $name');
+    print('Email: $email');
+  } else {
+    print('Request failed with status: ${response.statusCode}');
   }
 }
