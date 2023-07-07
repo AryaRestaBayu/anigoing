@@ -1,3 +1,4 @@
+import 'package:ani_going/controller/mylist_controller.dart';
 import 'package:ani_going/controller/player_controller.dart';
 import 'package:ani_going/model/anime_ongoing_model.dart';
 import 'package:ani_going/model/anime_upcoming_model.dart';
@@ -19,32 +20,8 @@ class DetailAnimePage extends StatelessWidget {
     final bool isOngoing = arguments['ongoing'];
 
     final podPlayerController = Get.find<PlayerController>();
-
-    if (isOngoing) {
-      if (animeOngoing?.trailer != '-') {
-        podPlayerController.playerController = PodPlayerController(
-          podPlayerConfig: const PodPlayerConfig(
-            videoQualityPriority: [360, 480],
-            autoPlay: false,
-            isLooping: false,
-          ),
-          playVideoFrom: PlayVideoFrom.youtube(animeOngoing!.trailer!),
-        )..initialise();
-        print(animeOngoing.trailer);
-      }
-    } else {
-      if (animeUpcoming?.trailer != '-') {
-        podPlayerController.playerController = PodPlayerController(
-          podPlayerConfig: const PodPlayerConfig(
-            videoQualityPriority: [360, 480],
-            autoPlay: false,
-            isLooping: false,
-          ),
-          playVideoFrom: PlayVideoFrom.youtube(animeUpcoming!.trailer),
-        )..initialise();
-        print(animeUpcoming.trailer);
-      }
-    }
+    podPlayerController.getPlayer(isOngoing, animeOngoing, animeUpcoming);
+    final myListController = Get.find<MyListController>();
 
     double sizeWidth = MediaQuery.of(context).size.width;
     double sizeHeight = MediaQuery.of(context).size.height;
@@ -86,62 +63,29 @@ class DetailAnimePage extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: sizeHeight * 0.03,
+                        height: sizeHeight * 0.01,
                       ),
                       //add my list
-                      ElevatedButton(
-                          onPressed: () {
-                            try {
-                              isOngoing
-                                  ? FirebaseFirestore.instance
-                                      .collection('users')
-                                      .doc(FirebaseAuth
-                                          .instance.currentUser!.uid)
-                                      .collection('mylist')
-                                      .doc(animeOngoing!.title)
-                                      .set({
-                                      'uid': FirebaseAuth
-                                          .instance.currentUser!.uid,
-                                      'image_url': animeOngoing.imageUrl,
-                                      'title': animeOngoing.title,
-                                      'synopsis': animeOngoing.synopsis,
-                                      'genre': animeOngoing.genre,
-                                      'trailer': animeOngoing.trailer,
-                                      'score': animeOngoing.score,
-                                      'episode': animeOngoing.episode,
-                                      'day': animeOngoing.day,
-                                      'month': animeOngoing.month,
-                                      'year': animeOngoing.year,
-                                      'type': animeOngoing.type,
-                                    })
-                                  : FirebaseFirestore.instance
-                                      .collection('users')
-                                      .doc(FirebaseAuth
-                                          .instance.currentUser!.uid)
-                                      .collection('mylist')
-                                      .doc(animeUpcoming!.title)
-                                      .set({
-                                      'uid': FirebaseAuth
-                                          .instance.currentUser!.uid,
-                                      'image_url': animeUpcoming.imageUrl,
-                                      'title': animeUpcoming.title,
-                                      'synopsis': animeUpcoming.synopsis,
-                                      'genre': animeUpcoming.genre,
-                                      'trailer': animeUpcoming.trailer,
-                                      'score': animeUpcoming.score,
-                                      'episode': animeUpcoming.episode,
-                                      'type': animeUpcoming.type,
-                                      'day': animeUpcoming.day,
-                                      'month': animeUpcoming.month,
-                                      'year': animeUpcoming.year,
-                                    });
-                            } on FirebaseException catch (e) {
-                              Get.snackbar('title', e.toString());
-                            }
-                          },
-                          child: Text('data')),
+                      GestureDetector(
+                        onTap: () {
+                          myListController.addMyList(
+                              isOngoing, animeOngoing, animeUpcoming);
+                        },
+                        child: Container(
+                          height: sizeHeight * 0.06,
+                          width: sizeWidth * 0.12,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(color: PColor.primary)),
+                          child: Icon(
+                            Icons.bookmark_add,
+                            color: PColor.accent,
+                          ),
+                        ),
+                      ),
+
                       SizedBox(
-                        height: sizeHeight * 0.03,
+                        height: sizeHeight * 0.02,
                       ),
                       //genre
                       Container(
