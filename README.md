@@ -5,7 +5,7 @@
 AniGoing is an application that provides list ongoing anime on the season, and the upcoming anime
 
 ## App Screenshot
-<img src="app_screenshot/login_page.jpg" width="128" /> <img src="app_screenshot/list_page.jpg" width="128" /> <img src="app_screenshot/detail_page.jpg" width="128" /> <img src="app_screenshot/home_page.jpg" width="128" />
+<img src="app_screenshot/login_page.jpg" width="148" /> <img src="app_screenshot/list_page.jpg" width="148" /> <img src="app_screenshot/detail_page.jpg" width="148" /> <img src="app_screenshot/home_page.jpg" width="148" />
 
 ## what i use
 - Getx as state manager
