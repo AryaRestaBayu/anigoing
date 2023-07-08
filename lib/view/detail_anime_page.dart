@@ -1,26 +1,20 @@
+import 'package:ani_going/controller/detail_anime_controller.dart';
 import 'package:ani_going/controller/mylist_controller.dart';
 import 'package:ani_going/controller/player_controller.dart';
-import 'package:ani_going/model/anime_ongoing_model.dart';
-import 'package:ani_going/model/anime_upcoming_model.dart';
 import 'package:ani_going/services/variable.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pod_player/pod_player.dart';
 
-class DetailAnimePage extends StatelessWidget {
+class DetailAnimePage extends GetView<DetailAnimeController> {
   const DetailAnimePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final arguments = Get.arguments;
-    final AnimeOngoing? animeOngoing = arguments?['animeOngoing'];
-    final AnimeUpcoming? animeUpcoming = arguments?['animeUpcoming'];
-    final bool isOngoing = arguments['ongoing'];
-
+    controller.getArgument();
     final podPlayerController = Get.find<PlayerController>();
-    podPlayerController.getPlayer(isOngoing, animeOngoing, animeUpcoming);
+    podPlayerController.getPlayer(controller.isOngoing, controller.isMyList,
+        controller.animeOngoing, controller.animeUpcoming, controller.myList);
     final myListController = Get.find<MyListController>();
 
     double sizeWidth = MediaQuery.of(context).size.width;
@@ -31,13 +25,13 @@ class DetailAnimePage extends StatelessWidget {
         body: Column(
           children: [
             //trailer
-            Container(
+            SizedBox(
               width: sizeWidth,
               height: sizeHeight * 0.30,
               child: podPlayerController.playerController != null
                   ? PodVideoPlayer(
                       controller: podPlayerController.playerController!)
-                  : Center(
+                  : const Center(
                       child: Text(
                         'Trailer not available',
                         style: TextStyle(color: Colors.white),
@@ -55,8 +49,12 @@ class DetailAnimePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        isOngoing ? animeOngoing!.title : animeUpcoming!.title,
-                        style: TextStyle(
+                        controller.isMyList
+                            ? controller.myList!.title
+                            : controller.isOngoing
+                                ? controller.animeOngoing!.title
+                                : controller.animeUpcoming!.title,
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -69,7 +67,9 @@ class DetailAnimePage extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                           myListController.addMyList(
-                              isOngoing, animeOngoing, animeUpcoming);
+                              controller.isOngoing,
+                              controller.animeOngoing,
+                              controller.animeUpcoming);
                         },
                         child: Container(
                           height: sizeHeight * 0.06,
@@ -88,22 +88,28 @@ class DetailAnimePage extends StatelessWidget {
                         height: sizeHeight * 0.02,
                       ),
                       //genre
-                      Container(
+                      SizedBox(
                         width: sizeWidth,
                         height: sizeHeight * 0.03,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: isOngoing
-                              ? animeOngoing!.genre.length
-                              : animeUpcoming!.genre.length,
+                          itemCount: controller.isMyList
+                              ? controller.myList!.genre.length
+                              : controller.isOngoing
+                                  ? controller.animeOngoing!.genre.length
+                                  : controller.animeUpcoming!.genre.length,
                           itemBuilder: (context, index) {
-                            String name = isOngoing
-                                ? animeOngoing!.genre[index]['name']
-                                : animeUpcoming!.genre[index]['name'];
+                            String name = controller.isMyList
+                                ? controller.myList!.genre[index]['name']
+                                : controller.isOngoing
+                                    ? controller.animeOngoing!.genre[index]
+                                        ['name']
+                                    : controller.animeUpcoming!.genre[index]
+                                        ['name'];
                             return Padding(
                               padding: EdgeInsets.only(right: sizeWidth * 0.02),
                               child: Container(
-                                padding: EdgeInsets.only(
+                                padding: const EdgeInsets.only(
                                     right: 4, left: 4, top: 1, bottom: 1),
                                 decoration: BoxDecoration(
                                   border: Border.all(color: PColor.primary),
@@ -113,7 +119,7 @@ class DetailAnimePage extends StatelessWidget {
                                 child: Center(
                                   child: Text(
                                     name,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 13,
                                     ),
@@ -129,9 +135,11 @@ class DetailAnimePage extends StatelessWidget {
                       ),
                       //synopsis
                       Text(
-                        isOngoing
-                            ? animeOngoing!.synopsis
-                            : animeUpcoming!.synopsis,
+                        controller.isMyList
+                            ? controller.myList!.synopsis
+                            : controller.isOngoing
+                                ? controller.animeOngoing!.synopsis
+                                : controller.animeUpcoming!.synopsis,
                         style: TextStyle(color: PColor.accent),
                       ),
                     ],

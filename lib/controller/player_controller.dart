@@ -1,5 +1,6 @@
 import 'package:ani_going/model/anime_ongoing_model.dart';
 import 'package:ani_going/model/anime_upcoming_model.dart';
+import 'package:ani_going/model/mylist_model.dart';
 import 'package:get/get.dart';
 import 'package:pod_player/pod_player.dart';
 
@@ -13,8 +14,8 @@ class PlayerController extends GetxController {
     print('init');
   }
 
-  getPlayer(bool isOngoing, AnimeOngoing? animeOngoing,
-      AnimeUpcoming? animeUpcoming) {
+  getPlayer(bool isOngoing, bool isMyList, AnimeOngoing? animeOngoing,
+      AnimeUpcoming? animeUpcoming, MyList? myList) {
     if (isOngoing) {
       if (animeOngoing?.trailer != '-') {
         playerController = PodPlayerController(
@@ -26,6 +27,18 @@ class PlayerController extends GetxController {
           playVideoFrom: PlayVideoFrom.youtube(animeOngoing!.trailer),
         )..initialise();
         print(animeOngoing.trailer);
+      }
+    } else if (isMyList) {
+      if (myList?.trailer != '-') {
+        playerController = PodPlayerController(
+          podPlayerConfig: const PodPlayerConfig(
+            videoQualityPriority: [360, 480],
+            autoPlay: false,
+            isLooping: false,
+          ),
+          playVideoFrom: PlayVideoFrom.youtube(myList!.trailer),
+        )..initialise();
+        print(myList.trailer);
       }
     } else {
       if (animeUpcoming?.trailer != '-') {
@@ -40,16 +53,16 @@ class PlayerController extends GetxController {
         print(animeUpcoming.trailer);
       }
     }
-  }
 
-  @override
-  void onClose() {
-    if (playerController != null) {
-      playerController!.dispose();
-      print('disposed');
-    } else {
-      print('not disposed');
+    @override
+    void onClose() {
+      if (playerController != null) {
+        playerController!.dispose();
+        print('disposed');
+      } else {
+        print('not disposed');
+      }
+      super.onClose();
     }
-    super.onClose();
   }
 }

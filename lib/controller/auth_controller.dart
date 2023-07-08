@@ -1,6 +1,5 @@
 import 'package:ani_going/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -20,7 +19,6 @@ class AuthController extends GetxController {
       Get.offNamed(AppRoutes.navbar);
     } on FirebaseAuthException catch (e) {
       Get.snackbar(e.toString(), e.toString());
-      // Get.back();
     }
   }
 

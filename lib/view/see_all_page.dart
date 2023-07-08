@@ -1,8 +1,6 @@
-import 'dart:ui';
-
+import 'package:ani_going/controller/detail_anime_controller.dart';
 import 'package:ani_going/model/anime_ongoing_model.dart';
 import 'package:ani_going/model/anime_upcoming_model.dart';
-import 'package:ani_going/routes.dart';
 import 'package:ani_going/services/api/anime_api.dart';
 import 'package:ani_going/services/variable.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +11,8 @@ class SeeAllPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DetailAnimeController detailAnimeController =
+        Get.find<DetailAnimeController>();
     final arguments = Get.arguments;
     final bool isOngoing = arguments['ongoing'];
 
@@ -51,16 +51,17 @@ class SeeAllPage extends StatelessWidget {
 
                       return GestureDetector(
                         onTap: () {
-                          Get.toNamed(AppRoutes.detailAnimePage,
-                              arguments: isOngoing
-                                  ? {
-                                      'animeOngoing': animeOngoing,
-                                      'ongoing': true,
-                                    }
-                                  : {
-                                      'animeUpcoming': animeUpcoming,
-                                      'ongoing': false,
-                                    });
+                          isOngoing
+                              ? detailAnimeController.sendArgument(
+                                  isOngoing: true,
+                                  isMyList: false,
+                                  animeOngoing: animeOngoing,
+                                )
+                              : detailAnimeController.sendArgument(
+                                  isOngoing: false,
+                                  isMyList: false,
+                                  animeUpcoming: animeUpcoming,
+                                );
                         },
                         child: Padding(
                           padding: EdgeInsets.only(bottom: sizeHeight * .02),

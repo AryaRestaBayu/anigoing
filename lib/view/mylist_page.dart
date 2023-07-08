@@ -1,8 +1,7 @@
+import 'package:ani_going/controller/detail_anime_controller.dart';
 import 'package:ani_going/controller/mylist_controller.dart';
 import 'package:ani_going/model/mylist_model.dart';
-import 'package:ani_going/routes.dart';
 import 'package:ani_going/services/variable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,6 +9,7 @@ class MyListPage extends StatelessWidget {
   MyListPage({Key? key}) : super(key: key);
 
   final myListControl = Get.find<MyListController>();
+  final detailAnimeController = Get.find<DetailAnimeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class MyListPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
+              SizedBox(
                 height: sizeHeight * 0.07,
                 child: Text(
                   'My List',
@@ -42,15 +42,21 @@ class MyListPage extends StatelessWidget {
                     if (snapshot.hasData) {
                       List<MyList>? myList = snapshot.data;
                       return ListView.builder(
+                        physics: const BouncingScrollPhysics(),
                         itemCount: myList!.length,
                         itemBuilder: (context, index) {
                           MyList myListItem = myList[index];
 
                           return GestureDetector(
                             onTap: () {
-                              Get.toNamed(
-                                AppRoutes.detailAnimePage,
-                                arguments: myListItem,
+                              // Get.toNamed(
+                              //   AppRoutes.detailAnimePage,
+                              //   arguments: myListItem,
+                              // );
+                              detailAnimeController.sendArgument(
+                                isOngoing: false,
+                                isMyList: true,
+                                myList: myListItem,
                               );
                             },
                             child: Padding(
@@ -60,10 +66,10 @@ class MyListPage extends StatelessWidget {
                               child: Row(
                                 children: [
                                   ClipRRect(
-                                    borderRadius: BorderRadius.all(
+                                    borderRadius: const BorderRadius.all(
                                       Radius.circular(20),
                                     ),
-                                    child: Container(
+                                    child: SizedBox(
                                       width: sizeWidth * .35,
                                       height: sizeHeight * .25,
                                       child: Image.network(
@@ -75,7 +81,7 @@ class MyListPage extends StatelessWidget {
                                   SizedBox(
                                     width: sizeWidth * .05,
                                   ),
-                                  Container(
+                                  SizedBox(
                                     width: sizeWidth * .50,
                                     height: sizeHeight * .25,
                                     child: Column(
@@ -94,8 +100,7 @@ class MyListPage extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          myListItem.episode.toString() +
-                                              ' Episodes',
+                                          '${myListItem.episode.toString()} Episode',
                                           style: TextStyle(
                                             color: PColor.accent,
                                           ),
@@ -124,7 +129,7 @@ class MyListPage extends StatelessWidget {
                     } else if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     } else {
-                      return CircularProgressIndicator();
+                      return const CircularProgressIndicator();
                     }
                   },
                 ),

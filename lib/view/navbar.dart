@@ -4,7 +4,6 @@ import 'package:ani_going/view/mylist_page.dart';
 import 'package:ani_going/view/setting_page.dart';
 import 'package:flutter/material.dart';
 import 'package:ani_going/controller/navbar_controller.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class Navbar extends GetView<NavbarController> {
@@ -13,7 +12,7 @@ class Navbar extends GetView<NavbarController> {
   final pages = [
     HomePage(),
     MyListPage(),
-    SettingPage(),
+    const SettingPage(),
   ];
 
   @override
@@ -28,7 +27,7 @@ class Navbar extends GetView<NavbarController> {
             () => pages.elementAt(controller.selectedIndex.value),
           ),
           Align(
-            alignment: Alignment(0.0, 0.9),
+            alignment: const Alignment(0.0, 0.9),
             child: Container(
               decoration: BoxDecoration(
                   border: Border.all(color: PColor.primary),
@@ -36,7 +35,7 @@ class Navbar extends GetView<NavbarController> {
               width: sizeWidth * 0.70,
               height: sizeHeight * 0.09,
               child: ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(40)),
+                  borderRadius: const BorderRadius.all(Radius.circular(40)),
                   child: Obx(
                     () => BottomNavigationBar(
                       items: const [

@@ -1,9 +1,7 @@
 import 'package:ani_going/controller/bindings/auth_binding.dart';
-import 'package:ani_going/controller/bindings/navbar_binding.dart';
 import 'package:ani_going/routes.dart';
 import 'package:ani_going/services/utilities.dart';
 import 'package:ani_going/services/variable.dart';
-import 'package:ani_going/view/test.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,7 +32,6 @@ class MyApp extends StatelessWidget {
           ThemeData(fontFamily: 'NunitoSans', highlightColor: PColor.primary),
       debugShowCheckedModeBanner: false,
       scaffoldMessengerKey: Utilities.messengerKey,
-      // initialRoute: AppRoutes.loginPage,
       initialRoute: AppRoutes.loginPage,
       initialBinding: AuthBinding(),
       getPages: AppRoutes.routes,

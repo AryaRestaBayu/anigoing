@@ -2,7 +2,7 @@ class MyList {
   final String imageUrl;
   final String title;
   final String synopsis;
-  final dynamic genre;
+  final List genre;
   final String trailer;
   final double score;
   final int episode;

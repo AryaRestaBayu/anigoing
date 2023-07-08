@@ -1,11 +1,10 @@
 import 'dart:ui';
 
+import 'package:ani_going/controller/detail_anime_controller.dart';
 import 'package:ani_going/model/anime_ongoing_model.dart';
 import 'package:ani_going/model/anime_upcoming_model.dart';
 import 'package:ani_going/routes.dart';
 import 'package:ani_going/services/api/anime_api.dart';
-import 'package:ani_going/view/see_all_page.dart';
-import 'package:ani_going/view/test.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../services/variable.dart';
@@ -14,6 +13,7 @@ class HomePage extends StatelessWidget {
   HomePage({super.key});
 
   final style = TextStyle(fontSize: 20, color: PColor.primary);
+  final detailAnimeController = Get.find<DetailAnimeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class HomePage extends StatelessWidget {
         ),
         //ongoing
         SliverToBoxAdapter(
-          child: Container(
+          child: SizedBox(
             height: sizeHeight * 0.90,
             width: sizeWidth,
             child: Column(
@@ -95,20 +95,18 @@ class HomePage extends StatelessWidget {
                             AnimeOngoing animeOngoing = sortedAnimeList[index];
                             return GestureDetector(
                               onTap: () {
-                                Get.toNamed(AppRoutes.detailAnimePage,
-                                    arguments: {
-                                      'animeOngoing': animeOngoing,
-                                      'ongoing': true,
-                                    });
-                                // Get.to(TestPage());
+                                detailAnimeController.sendArgument(
+                                    isMyList: false,
+                                    isOngoing: true,
+                                    animeOngoing: animeOngoing);
                               },
                               child: Padding(
                                 padding:
                                     EdgeInsets.only(left: sizeWidth * 0.03),
                                 child: ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
-                                  child: Container(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(20)),
+                                  child: SizedBox(
                                     width: sizeWidth * 0.38,
                                     height: sizeHeight * 0.10,
                                     child: Stack(
@@ -128,8 +126,9 @@ class HomePage extends StatelessWidget {
                                               left: sizeWidth * 0.02,
                                               top: sizeHeight * 0.01),
                                           child: ClipRRect(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10)),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(10)),
                                             child: BackdropFilter(
                                               filter: ImageFilter.blur(
                                                   sigmaX: 8.0, sigmaY: 8.0),
@@ -151,7 +150,7 @@ class HomePage extends StatelessWidget {
                                                   child: Text(
                                                     animeOngoing.score
                                                         .toString(),
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         color: Colors.white,
                                                         fontSize: 14),
                                                   ),
@@ -183,7 +182,7 @@ class HomePage extends StatelessWidget {
                                                   child: SingleChildScrollView(
                                                     child: Text(
                                                       animeOngoing.title,
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           color: Colors.white),
                                                     ),
                                                   ),
@@ -238,20 +237,18 @@ class HomePage extends StatelessWidget {
                                 controller.animeUpcomingList[index];
                             return GestureDetector(
                               onTap: () {
-                                Get.toNamed(AppRoutes.detailAnimePage,
-                                    arguments: {
-                                      'animeUpcoming': animeUpcoming,
-                                      'ongoing': false,
-                                    });
-                                // Get.to(TestPage());
+                                detailAnimeController.sendArgument(
+                                    isMyList: false,
+                                    isOngoing: false,
+                                    animeUpcoming: animeUpcoming);
                               },
                               child: Padding(
                                 padding:
                                     EdgeInsets.only(left: sizeWidth * 0.03),
                                 child: ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
-                                  child: Container(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(20)),
+                                  child: SizedBox(
                                     width: sizeWidth * 0.38,
                                     height: sizeHeight * 0.10,
                                     child: Stack(
@@ -271,8 +268,9 @@ class HomePage extends StatelessWidget {
                                               left: sizeWidth * 0.02,
                                               top: sizeHeight * 0.01),
                                           child: ClipRRect(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10)),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(10)),
                                             child: BackdropFilter(
                                               filter: ImageFilter.blur(
                                                   sigmaX: 8.0, sigmaY: 8.0),
@@ -293,7 +291,7 @@ class HomePage extends StatelessWidget {
                                                 child: Center(
                                                   child: Text(
                                                     '${animeUpcoming.day}-${animeUpcoming.month}-${animeUpcoming.year}',
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         color: Colors.white,
                                                         fontSize: 13),
                                                   ),
@@ -325,7 +323,7 @@ class HomePage extends StatelessWidget {
                                                   child: SingleChildScrollView(
                                                     child: Text(
                                                       animeUpcoming.title,
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           color: Colors.white),
                                                     ),
                                                   ),

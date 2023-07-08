@@ -45,7 +45,7 @@ class LoginPage extends StatelessWidget {
                   //google
                   ElevatedButton(
                     onPressed: () {
-                      AuthController().signInWithGoogle();
+                      authController.signInWithGoogle();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,
