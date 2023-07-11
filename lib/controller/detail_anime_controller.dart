@@ -8,8 +8,9 @@ class DetailAnimeController extends GetxController {
   AnimeOngoing? animeOngoing;
   AnimeUpcoming? animeUpcoming;
   MyList? myList;
-  late bool isOngoing;
-  late bool isMyList;
+  late RxBool isOngoing;
+  late RxBool isMyList;
+  String? title;
 
   void getArgument() {
     try {
@@ -17,23 +18,21 @@ class DetailAnimeController extends GetxController {
       animeOngoing = arguments?['animeOngoing'];
       animeUpcoming = arguments?['animeUpcoming'];
       myList = arguments?['myList'];
-      isOngoing = arguments?['isOngoing'];
-      isMyList = arguments?['isMyList'];
-      print(animeOngoing);
-      print(animeUpcoming);
-      print(isOngoing);
-      print(isMyList);
+      isOngoing = arguments['isOngoing'];
+      isMyList = arguments['isMyList'];
+      title = arguments?['title'];
     } catch (e) {
       print(e.toString());
     }
   }
 
   void sendArgument({
-    bool? isOngoing,
-    bool? isMyList,
+    RxBool? isOngoing,
+    RxBool? isMyList,
     AnimeOngoing? animeOngoing,
     AnimeUpcoming? animeUpcoming,
     MyList? myList,
+    String? title,
   }) {
     Get.toNamed(AppRoutes.detailAnimePage, arguments: {
       'animeOngoing': animeOngoing,
@@ -41,6 +40,7 @@ class DetailAnimeController extends GetxController {
       'myList': myList,
       'isOngoing': isOngoing,
       'isMyList': isMyList,
+      'title': title,
     });
   }
 }

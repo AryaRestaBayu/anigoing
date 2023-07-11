@@ -1,7 +1,7 @@
 import 'package:ani_going/controller/bindings/auth_binding.dart';
 import 'package:ani_going/routes.dart';
 import 'package:ani_going/services/utilities.dart';
-import 'package:ani_going/services/variable.dart';
+import 'package:ani_going/services/color.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

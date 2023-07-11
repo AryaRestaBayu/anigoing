@@ -7,12 +7,12 @@ import 'package:ani_going/routes.dart';
 import 'package:ani_going/services/api/anime_api.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../services/variable.dart';
+import '../services/color.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
-  final style = TextStyle(fontSize: 20, color: PColor.primary);
+  final style = const TextStyle(fontSize: 20, color: PColor.primary);
   final detailAnimeController = Get.find<DetailAnimeController>();
 
   @override
@@ -38,7 +38,7 @@ class HomePage extends StatelessWidget {
               fit: BoxFit.cover,
             ),
             centerTitle: true,
-            title: Text(
+            title: const Text(
               'AniGoing',
               style: TextStyle(
                   fontSize: 20,
@@ -70,7 +70,7 @@ class HomePage extends StatelessWidget {
                             'ongoing': true,
                           });
                         },
-                        child: Text(
+                        child: const Text(
                           'See all ➤',
                           style: TextStyle(color: PColor.primary),
                         ),
@@ -96,8 +96,9 @@ class HomePage extends StatelessWidget {
                             return GestureDetector(
                               onTap: () {
                                 detailAnimeController.sendArgument(
-                                    isMyList: false,
-                                    isOngoing: true,
+                                    isMyList: false.obs,
+                                    isOngoing: true.obs,
+                                    title: animeOngoing.title,
                                     animeOngoing: animeOngoing);
                               },
                               child: Padding(
@@ -169,7 +170,7 @@ class HomePage extends StatelessWidget {
                                               decoration: BoxDecoration(
                                                   color: Colors.black
                                                       .withOpacity(0.8),
-                                                  border: Border(
+                                                  border: const Border(
                                                       top: BorderSide(
                                                     color: PColor.primary,
                                                     width: 2,
@@ -214,7 +215,7 @@ class HomePage extends StatelessWidget {
                             'ongoing': false,
                           });
                         },
-                        child: Text(
+                        child: const Text(
                           'See all ➤',
                           style: TextStyle(color: PColor.primary),
                         ),
@@ -238,8 +239,9 @@ class HomePage extends StatelessWidget {
                             return GestureDetector(
                               onTap: () {
                                 detailAnimeController.sendArgument(
-                                    isMyList: false,
-                                    isOngoing: false,
+                                    isMyList: false.obs,
+                                    isOngoing: false.obs,
+                                    title: animeUpcoming.title,
                                     animeUpcoming: animeUpcoming);
                               },
                               child: Padding(
@@ -310,7 +312,7 @@ class HomePage extends StatelessWidget {
                                               decoration: BoxDecoration(
                                                   color: Colors.black
                                                       .withOpacity(0.8),
-                                                  border: Border(
+                                                  border: const Border(
                                                       top: BorderSide(
                                                     color: PColor.primary,
                                                     width: 2,

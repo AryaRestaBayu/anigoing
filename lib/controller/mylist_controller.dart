@@ -2,22 +2,39 @@ import 'package:ani_going/model/anime_ongoing_model.dart';
 import 'package:ani_going/model/anime_upcoming_model.dart';
 import 'package:ani_going/model/mylist_model.dart';
 import 'package:ani_going/services/utilities.dart';
-import 'package:ani_going/services/variable.dart';
+import 'package:ani_going/services/color.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class MyListController extends GetxController {
   var myList = RxList<MyList>([]);
+  RxBool isAdded = false.obs;
+  final collection = FirebaseFirestore.instance
+      .collection('users')
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .collection('mylist');
+  final currentUser = FirebaseAuth.instance.currentUser!;
 
-  Stream<List<MyList>> getMyList() {
-    return FirebaseFirestore.instance
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .collection('mylist')
-        .snapshots()
-        .map((snapshot) =>
-            snapshot.docs.map((doc) => MyList.fromJson(doc.data())).toList());
+  void getTitle(String title) async {
+    try {
+      var response = await collection.doc(title).get();
+      if (response.exists) {
+        isAdded.value = true;
+        print(response.toString());
+      } else {
+        isAdded.value = false;
+        print('title tidak ada');
+      }
+    } catch (e) {
+      print('error');
+    }
+  }
+
+  Stream getMyList() {
+    print('getmylist');
+    return collection.snapshots().map((snapshot) =>
+        snapshot.docs.map((doc) => MyList.fromJson(doc.data())).toList());
   }
 
   Future<void> addMyList(
@@ -26,14 +43,10 @@ class MyListController extends GetxController {
     AnimeUpcoming? animeUpcoming,
   ) async {
     try {
-      final currentUser = FirebaseAuth.instance.currentUser;
-      final collectionReference =
-          FirebaseFirestore.instance.collection('users');
-      final userDocument = collectionReference.doc(currentUser!.uid);
-      final mylistCollection = userDocument.collection('mylist');
-
-      if (isOngoing) {
-        await mylistCollection.doc(animeOngoing!.title).set({
+      if (isAdded.value == true) {
+        Utilities.snackBar('Sudah ada di My List', PColor.error);
+      } else if (isOngoing) {
+        await collection.doc(animeOngoing!.title).set({
           'uid': currentUser.uid,
           'image_url': animeOngoing.imageUrl,
           'title': animeOngoing.title,
@@ -47,8 +60,10 @@ class MyListController extends GetxController {
           'year': animeOngoing.year,
           'type': animeOngoing.type,
         });
+        isAdded.value = true;
+        Utilities.snackBar('Ditambahkan ke MyList', PColor.primary);
       } else {
-        await mylistCollection.doc(animeUpcoming!.title).set({
+        await collection.doc(animeUpcoming!.title).set({
           'uid': currentUser.uid,
           'image_url': animeUpcoming.imageUrl,
           'title': animeUpcoming.title,
@@ -62,11 +77,23 @@ class MyListController extends GetxController {
           'month': animeUpcoming.month,
           'year': animeUpcoming.year,
         });
+        isAdded.value = true;
+        Utilities.snackBar('Ditambahkan ke MyList', PColor.primary);
       }
-      Utilities.snackBar('Ditambahkan ke MyList', PColor.primary);
     } catch (e) {
       print(e);
       Utilities.snackBar(e.toString(), PColor.primary);
+    }
+  }
+
+  void deleteMyList(MyList? mylist) async {
+    try {
+      await collection.doc(mylist!.title).delete();
+      Utilities.snackBar('Dihapus dari MyList', PColor.primary);
+      Get.back();
+    } catch (e) {
+      print(e);
+      Utilities.snackBar('Terjadi kesalahan', PColor.error);
     }
   }
 }

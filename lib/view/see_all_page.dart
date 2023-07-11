@@ -2,7 +2,7 @@ import 'package:ani_going/controller/detail_anime_controller.dart';
 import 'package:ani_going/model/anime_ongoing_model.dart';
 import 'package:ani_going/model/anime_upcoming_model.dart';
 import 'package:ani_going/services/api/anime_api.dart';
-import 'package:ani_going/services/variable.dart';
+import 'package:ani_going/services/color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -30,12 +30,12 @@ class SeeAllPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
+              SizedBox(
                 // color: Colors.red,
                 height: sizeHeight * 0.07,
                 child: Text(
                   isOngoing ? 'Ongoing' : 'Upcoming',
-                  style: TextStyle(color: PColor.primary, fontSize: 22),
+                  style: const TextStyle(color: PColor.primary, fontSize: 22),
                 ),
               ),
               Expanded(child: GetBuilder<AnimeApi>(builder: (controller) {
@@ -53,13 +53,13 @@ class SeeAllPage extends StatelessWidget {
                         onTap: () {
                           isOngoing
                               ? detailAnimeController.sendArgument(
-                                  isOngoing: true,
-                                  isMyList: false,
+                                  isOngoing: true.obs,
+                                  isMyList: false.obs,
                                   animeOngoing: animeOngoing,
                                 )
                               : detailAnimeController.sendArgument(
-                                  isOngoing: false,
-                                  isMyList: false,
+                                  isOngoing: false.obs,
+                                  isMyList: false.obs,
                                   animeUpcoming: animeUpcoming,
                                 );
                         },
@@ -70,8 +70,8 @@ class SeeAllPage extends StatelessWidget {
                               //image
                               ClipRRect(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
-                                child: Container(
+                                    const BorderRadius.all(Radius.circular(20)),
+                                child: SizedBox(
                                   width: sizeWidth * .35,
                                   height: sizeHeight * .25,
                                   child: Image.network(
@@ -86,7 +86,7 @@ class SeeAllPage extends StatelessWidget {
                                 width: sizeWidth * .05,
                               ),
                               //detail
-                              Container(
+                              SizedBox(
                                 width: sizeWidth * .50,
                                 height: sizeHeight * .25,
                                 child: Column(
@@ -107,11 +107,9 @@ class SeeAllPage extends StatelessWidget {
                                     ),
                                     Text(
                                       isOngoing
-                                          ? animeOngoing.episode.toString() +
-                                              ' Episodes'
-                                          : animeUpcoming.episode.toString() +
-                                              ' Episodes',
-                                      style: TextStyle(
+                                          ? '${animeOngoing.episode} Episodes'
+                                          : '${animeUpcoming.episode} Episodes',
+                                      style: const TextStyle(
                                         color: PColor.accent,
                                       ),
                                     ),
@@ -119,13 +117,15 @@ class SeeAllPage extends StatelessWidget {
                                       isOngoing
                                           ? animeOngoing.type
                                           : animeUpcoming.type,
-                                      style: TextStyle(color: PColor.accent),
+                                      style:
+                                          const TextStyle(color: PColor.accent),
                                     ),
                                     Text(
                                       isOngoing
                                           ? '${animeOngoing.day}-${animeOngoing.month}-${animeOngoing.year}'
                                           : '${animeUpcoming.day}-${animeUpcoming.month}-${animeUpcoming.year}',
-                                      style: TextStyle(color: PColor.accent),
+                                      style:
+                                          const TextStyle(color: PColor.accent),
                                     ),
                                   ],
                                 ),

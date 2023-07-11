@@ -37,7 +37,7 @@ class AppRoutes {
     ),
     GetPage(
       name: seeAllPage,
-      page: () => SeeAllPage(),
+      page: () => const SeeAllPage(),
     ),
     GetPage(
       name: loginPage,

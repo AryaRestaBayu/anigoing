@@ -8,14 +8,14 @@ class SettingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Setting'),
+        title: const Text('Setting'),
       ),
       body: Center(
         child: ElevatedButton(
           onPressed: () async {
             AuthController().signOutGoogle();
           },
-          child: Text('Logout'),
+          child: const Text('Logout'),
         ),
       ),
     );

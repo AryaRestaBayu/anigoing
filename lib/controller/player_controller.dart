@@ -14,9 +14,9 @@ class PlayerController extends GetxController {
     print('init');
   }
 
-  getPlayer(bool isOngoing, bool isMyList, AnimeOngoing? animeOngoing,
+  getPlayer(RxBool isOngoing, RxBool isMyList, AnimeOngoing? animeOngoing,
       AnimeUpcoming? animeUpcoming, MyList? myList) {
-    if (isOngoing) {
+    if (isOngoing.value) {
       if (animeOngoing?.trailer != '-') {
         playerController = PodPlayerController(
           podPlayerConfig: const PodPlayerConfig(
@@ -28,7 +28,7 @@ class PlayerController extends GetxController {
         )..initialise();
         print(animeOngoing.trailer);
       }
-    } else if (isMyList) {
+    } else if (isMyList.value) {
       if (myList?.trailer != '-') {
         playerController = PodPlayerController(
           podPlayerConfig: const PodPlayerConfig(

@@ -1,4 +1,4 @@
-import 'package:ani_going/services/variable.dart';
+import 'package:ani_going/services/color.dart';
 import 'package:ani_going/view/home_page.dart';
 import 'package:ani_going/view/mylist_page.dart';
 import 'package:ani_going/view/setting_page.dart';

@@ -1,7 +1,7 @@
 import 'package:ani_going/controller/detail_anime_controller.dart';
 import 'package:ani_going/controller/mylist_controller.dart';
 import 'package:ani_going/model/mylist_model.dart';
-import 'package:ani_going/services/variable.dart';
+import 'package:ani_going/services/color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -30,33 +30,29 @@ class MyListPage extends StatelessWidget {
             children: [
               SizedBox(
                 height: sizeHeight * 0.07,
-                child: Text(
+                child: const Text(
                   'My List',
                   style: TextStyle(color: PColor.primary, fontSize: 22),
                 ),
               ),
               Expanded(
-                child: StreamBuilder<List<MyList>>(
+                child: StreamBuilder(
                   stream: myListControl.getMyList(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      List<MyList>? myList = snapshot.data;
+                      List<MyList>? listMyList = snapshot.data;
                       return ListView.builder(
                         physics: const BouncingScrollPhysics(),
-                        itemCount: myList!.length,
+                        itemCount: listMyList!.length,
                         itemBuilder: (context, index) {
-                          MyList myListItem = myList[index];
-
+                          MyList myList = listMyList[index];
                           return GestureDetector(
                             onTap: () {
-                              // Get.toNamed(
-                              //   AppRoutes.detailAnimePage,
-                              //   arguments: myListItem,
-                              // );
                               detailAnimeController.sendArgument(
-                                isOngoing: false,
-                                isMyList: true,
-                                myList: myListItem,
+                                isOngoing: false.obs,
+                                isMyList: true.obs,
+                                title: myList.title,
+                                myList: myList,
                               );
                             },
                             child: Padding(
@@ -73,7 +69,7 @@ class MyListPage extends StatelessWidget {
                                       width: sizeWidth * .35,
                                       height: sizeHeight * .25,
                                       child: Image.network(
-                                        myListItem.imageUrl,
+                                        myList.imageUrl,
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -91,7 +87,7 @@ class MyListPage extends StatelessWidget {
                                           MainAxisAlignment.spaceAround,
                                       children: [
                                         Text(
-                                          myListItem.title,
+                                          myList.title,
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold,
@@ -100,20 +96,20 @@ class MyListPage extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          '${myListItem.episode.toString()} Episode',
-                                          style: TextStyle(
+                                          '${myList.episode.toString()} Episode',
+                                          style: const TextStyle(
                                             color: PColor.accent,
                                           ),
                                         ),
                                         Text(
-                                          myListItem.type,
-                                          style: TextStyle(
+                                          myList.type,
+                                          style: const TextStyle(
                                             color: PColor.accent,
                                           ),
                                         ),
                                         Text(
-                                          '${myListItem.day}-${myListItem.month}-${myListItem.year}',
-                                          style: TextStyle(
+                                          '${myList.day}-${myList.month}-${myList.year}',
+                                          style: const TextStyle(
                                             color: PColor.accent,
                                           ),
                                         ),
@@ -129,7 +125,7 @@ class MyListPage extends StatelessWidget {
                     } else if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     } else {
-                      return const CircularProgressIndicator();
+                      return const Center(child: CircularProgressIndicator());
                     }
                   },
                 ),

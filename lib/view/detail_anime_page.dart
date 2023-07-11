@@ -1,21 +1,24 @@
 import 'package:ani_going/controller/detail_anime_controller.dart';
 import 'package:ani_going/controller/mylist_controller.dart';
 import 'package:ani_going/controller/player_controller.dart';
-import 'package:ani_going/services/variable.dart';
+import 'package:ani_going/services/color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pod_player/pod_player.dart';
 
 class DetailAnimePage extends GetView<DetailAnimeController> {
-  const DetailAnimePage({super.key});
+  DetailAnimePage({super.key});
+
+  // final controller = Get.find<DetailAnimeController>();
+  final myListController = Get.find<MyListController>();
 
   @override
   Widget build(BuildContext context) {
     controller.getArgument();
+    myListController.getTitle(controller.title!);
     final podPlayerController = Get.find<PlayerController>();
     podPlayerController.getPlayer(controller.isOngoing, controller.isMyList,
         controller.animeOngoing, controller.animeUpcoming, controller.myList);
-    final myListController = Get.find<MyListController>();
 
     double sizeWidth = MediaQuery.of(context).size.width;
     double sizeHeight = MediaQuery.of(context).size.height;
@@ -49,9 +52,9 @@ class DetailAnimePage extends GetView<DetailAnimeController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        controller.isMyList
+                        controller.isMyList.value
                             ? controller.myList!.title
-                            : controller.isOngoing
+                            : controller.isOngoing.value
                                 ? controller.animeOngoing!.title
                                 : controller.animeUpcoming!.title,
                         style: const TextStyle(
@@ -66,22 +69,27 @@ class DetailAnimePage extends GetView<DetailAnimeController> {
                       //add my list
                       GestureDetector(
                         onTap: () {
-                          myListController.addMyList(
-                              controller.isOngoing,
-                              controller.animeOngoing,
-                              controller.animeUpcoming);
+                          controller.isMyList.value == true
+                              ? myListController.deleteMyList(controller.myList)
+                              : myListController.addMyList(
+                                  controller.isOngoing.value,
+                                  controller.animeOngoing,
+                                  controller.animeUpcoming);
                         },
                         child: Container(
-                          height: sizeHeight * 0.06,
-                          width: sizeWidth * 0.12,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(color: PColor.primary)),
-                          child: Icon(
-                            Icons.bookmark_add,
-                            color: PColor.accent,
-                          ),
-                        ),
+                            height: sizeHeight * 0.06,
+                            width: sizeWidth * 0.12,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(color: PColor.primary)),
+                            child: Obx(
+                              () => Icon(
+                                myListController.isAdded.value == true
+                                    ? Icons.bookmark_added
+                                    : Icons.bookmark_add,
+                                color: PColor.accent,
+                              ),
+                            )),
                       ),
 
                       SizedBox(
@@ -93,15 +101,15 @@ class DetailAnimePage extends GetView<DetailAnimeController> {
                         height: sizeHeight * 0.03,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: controller.isMyList
+                          itemCount: controller.isMyList.value
                               ? controller.myList!.genre.length
-                              : controller.isOngoing
+                              : controller.isOngoing.value
                                   ? controller.animeOngoing!.genre.length
                                   : controller.animeUpcoming!.genre.length,
                           itemBuilder: (context, index) {
-                            String name = controller.isMyList
+                            String name = controller.isMyList.value
                                 ? controller.myList!.genre[index]['name']
-                                : controller.isOngoing
+                                : controller.isOngoing.value
                                     ? controller.animeOngoing!.genre[index]
                                         ['name']
                                     : controller.animeUpcoming!.genre[index]
@@ -135,12 +143,12 @@ class DetailAnimePage extends GetView<DetailAnimeController> {
                       ),
                       //synopsis
                       Text(
-                        controller.isMyList
+                        controller.isMyList.value
                             ? controller.myList!.synopsis
-                            : controller.isOngoing
+                            : controller.isOngoing.value
                                 ? controller.animeOngoing!.synopsis
                                 : controller.animeUpcoming!.synopsis,
-                        style: TextStyle(color: PColor.accent),
+                        style: const TextStyle(color: PColor.accent),
                       ),
                     ],
                   ),
