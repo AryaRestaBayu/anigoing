@@ -11,6 +11,7 @@ class LoginPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final RxBool isVisible = true.obs;
+
   @override
   Widget build(BuildContext context) {
     double sizeWidth = MediaQuery.of(context).size.width;
@@ -63,9 +64,10 @@ class LoginPage extends StatelessWidget {
                           width: sizeWidth * 0.15,
                           height: sizeHeight * 0.05,
                         ),
-                        const Text(
+                        Text(
                           'Continue with google',
-                          style: TextStyle(color: PColor.accent, fontSize: 13),
+                          style: TextStyle(
+                              color: PColor.accent, fontSize: sizeWidth * 0.03),
                         ),
                         SizedBox(
                           width: sizeWidth * 0.08,

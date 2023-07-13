@@ -31,7 +31,6 @@ class SeeAllPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                // color: Colors.red,
                 height: sizeHeight * 0.07,
                 child: Text(
                   isOngoing ? 'Ongoing' : 'Upcoming',
@@ -40,6 +39,7 @@ class SeeAllPage extends StatelessWidget {
               ),
               Expanded(child: GetBuilder<AnimeApi>(builder: (controller) {
                 return ListView.builder(
+                    physics: const BouncingScrollPhysics(),
                     itemCount: isOngoing
                         ? controller.animeOngoingList.length
                         : controller.animeUpcomingList.length,
@@ -55,13 +55,14 @@ class SeeAllPage extends StatelessWidget {
                               ? detailAnimeController.sendArgument(
                                   isOngoing: true.obs,
                                   isMyList: false.obs,
+                                  title: animeOngoing.title,
                                   animeOngoing: animeOngoing,
                                 )
                               : detailAnimeController.sendArgument(
-                                  isOngoing: false.obs,
                                   isMyList: false.obs,
-                                  animeUpcoming: animeUpcoming,
-                                );
+                                  isOngoing: false.obs,
+                                  title: animeUpcoming.title,
+                                  animeUpcoming: animeUpcoming);
                         },
                         child: Padding(
                           padding: EdgeInsets.only(bottom: sizeHeight * .02),

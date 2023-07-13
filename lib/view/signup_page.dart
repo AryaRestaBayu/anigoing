@@ -65,9 +65,10 @@ class SignUpPage extends StatelessWidget {
                           width: sizeWidth * 0.15,
                           height: sizeHeight * 0.05,
                         ),
-                        const Text(
+                        Text(
                           'Continue with google',
-                          style: TextStyle(color: PColor.accent, fontSize: 13),
+                          style: TextStyle(
+                              color: PColor.accent, fontSize: sizeWidth * 0.03),
                         ),
                         SizedBox(
                           width: sizeWidth * 0.08,

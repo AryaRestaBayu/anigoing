@@ -12,7 +12,7 @@ class Navbar extends GetView<NavbarController> {
   final pages = [
     HomePage(),
     MyListPage(),
-    const SettingPage(),
+    SettingPage(),
   ];
 
   @override
@@ -33,7 +33,7 @@ class Navbar extends GetView<NavbarController> {
                   border: Border.all(color: PColor.primary),
                   borderRadius: BorderRadius.circular(40)),
               width: sizeWidth * 0.70,
-              height: sizeHeight * 0.09,
+              height: sizeHeight * 0.10,
               child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(40)),
                   child: Obx(
@@ -44,7 +44,7 @@ class Navbar extends GetView<NavbarController> {
                         BottomNavigationBarItem(
                             icon: Icon(Icons.bookmark), label: 'My list'),
                         BottomNavigationBarItem(
-                            icon: Icon(Icons.settings), label: 'Profile'),
+                            icon: Icon(Icons.settings), label: 'Setting'),
                       ],
                       currentIndex: controller.selectedIndex.value,
                       backgroundColor: Colors.black.withOpacity(0.20),

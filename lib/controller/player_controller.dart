@@ -53,16 +53,16 @@ class PlayerController extends GetxController {
         print(animeUpcoming.trailer);
       }
     }
+  }
 
-    @override
-    void onClose() {
-      if (playerController != null) {
-        playerController!.dispose();
-        print('disposed');
-      } else {
-        print('not disposed');
-      }
-      super.onClose();
+  @override
+  void onClose() {
+    if (playerController != null) {
+      playerController!.dispose();
+      print('disposed');
+    } else {
+      print('not disposed');
     }
+    super.onClose();
   }
 }
