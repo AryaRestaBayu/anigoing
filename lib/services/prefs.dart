@@ -7,13 +7,29 @@ class SharePref {
     return isLogin ?? false;
   }
 
-  setPrefs(bool isLogin) async {
+  Future<bool> setPrefs(bool isLogin) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('isLogin', isLogin);
+    return prefs.setBool('isLogin', isLogin);
   }
 
-  removePrefs() async {
+  Future<bool> removePrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.clear();
+    return prefs.remove('isLogin');
+  }
+
+  Future<bool> setLocale() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.setBool('isEn', false);
+  }
+
+  Future<bool> removeLocale() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.remove('isEn');
+  }
+
+  Future<bool> getLocale() async {
+    final prefs = await SharedPreferences.getInstance();
+    bool? isEn = prefs.getBool('isEn');
+    return isEn ?? true;
   }
 }

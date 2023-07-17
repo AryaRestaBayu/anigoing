@@ -1,19 +1,21 @@
 import 'package:ani_going/controller/bindings/auth_binding.dart';
+import 'package:ani_going/controller/translations_controller.dart';
 import 'package:ani_going/routes.dart';
 import 'package:ani_going/services/prefs.dart';
+import 'package:ani_going/services/translations.dart';
 import 'package:ani_going/services/utilities.dart';
 import 'package:ani_going/services/color.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await EasyLocalization.ensureInitialized();
+  Get.put(TranslationsController());
   bool isLogin = await SharePref().getPrefs();
+  bool isEn = await SharePref().getLocale();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.black,
@@ -23,31 +25,25 @@ void main() async {
       systemNavigationBarIconBrightness: Brightness.light,
     ),
   );
-  runApp(
-    EasyLocalization(
-      supportedLocales: const [
-        Locale('en'),
-        Locale('id'),
-      ],
-      path: 'assets/translation',
-      fallbackLocale: Locale('en'),
-      startLocale: Locale('en'),
-      useOnlyLangCode: true,
-      child: MyApp(isLogin: isLogin),
-    ),
-  );
+  runApp(MyApp(
+    isLogin: isLogin,
+    isEn: isEn,
+  ));
 }
 
 class MyApp extends StatelessWidget {
   final bool isLogin;
-  const MyApp({super.key, required this.isLogin});
+  final bool isEn;
+  const MyApp({super.key, required this.isLogin, required this.isEn});
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
+      translations: TranslationService(),
+      locale: isEn == true
+          ? TranslationService().enLocale
+          : TranslationService().idLocale,
+      fallbackLocale: TranslationService().enLocale,
       theme:
           ThemeData(fontFamily: 'NunitoSans', highlightColor: AppColor.primary),
       debugShowCheckedModeBanner: false,

@@ -63,7 +63,7 @@ class HomePage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Ongoing',
+                            'ongoing'.tr,
                             style: style,
                           ),
                           GestureDetector(
@@ -72,8 +72,8 @@ class HomePage extends StatelessWidget {
                                 'ongoing': true,
                               });
                             },
-                            child: const Text(
-                              'See all ➤',
+                            child: Text(
+                              'seeAll'.tr,
                               style: TextStyle(color: AppColor.primary),
                             ),
                           ),
@@ -219,7 +219,7 @@ class HomePage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Upcoming',
+                            'upcoming'.tr,
                             style: style,
                           ),
                           GestureDetector(
@@ -228,8 +228,8 @@ class HomePage extends StatelessWidget {
                                 'ongoing': false,
                               });
                             },
-                            child: const Text(
-                              'See all ➤',
+                            child: Text(
+                              'seeAll'.tr,
                               style: TextStyle(color: AppColor.primary),
                             ),
                           ),

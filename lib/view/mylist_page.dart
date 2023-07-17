@@ -30,8 +30,8 @@ class MyListPage extends StatelessWidget {
             children: [
               SizedBox(
                 height: sizeHeight * 0.07,
-                child: const Text(
-                  'My List',
+                child: Text(
+                  'myList'.tr,
                   style: TextStyle(color: AppColor.primary, fontSize: 22),
                 ),
               ),

@@ -33,7 +33,7 @@ class SeeAllPage extends StatelessWidget {
               SizedBox(
                 height: sizeHeight * 0.07,
                 child: Text(
-                  isOngoing ? 'Ongoing' : 'Upcoming',
+                  isOngoing ? 'ongoing'.tr : 'upcoming'.tr,
                   style: const TextStyle(color: AppColor.primary, fontSize: 22),
                 ),
               ),

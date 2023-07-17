@@ -1,5 +1,7 @@
 import 'package:ani_going/controller/auth_controller.dart';
+import 'package:ani_going/controller/translations_controller.dart';
 import 'package:ani_going/services/color.dart';
+import 'package:ani_going/services/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,51 +14,58 @@ class SettingPage extends StatelessWidget {
     double sizeWidth = MediaQuery.of(context).size.width;
     double sizeHeight = MediaQuery.of(context).size.height;
 
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.black,
-        body: Padding(
-          padding: EdgeInsets.only(
-              top: sizeHeight * 0.02,
-              left: sizeWidth * 0.05,
-              right: sizeWidth * 0.05),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: sizeHeight * 0.05,
-                child: const Text(
-                  'Settings',
-                  style: TextStyle(color: AppColor.primary, fontSize: 22),
+    return GetBuilder<TranslationsController>(builder: (translation) {
+      return SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.black,
+          body: Padding(
+            padding: EdgeInsets.only(
+                top: sizeHeight * 0.02,
+                left: sizeWidth * 0.05,
+                right: sizeWidth * 0.05),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: sizeHeight * 0.05,
+                  child: Text(
+                    'settings'.tr,
+                    style: TextStyle(color: AppColor.primary, fontSize: 22),
+                  ),
                 ),
-              ),
-              Expanded(
-                  child: ListView(
-                children: [
-                  Listtile(
-                    ontap: () {},
-                    title: 'Language',
-                    subtitle: 'English',
-                  ),
-                  Listtile(
-                    ontap: () {},
-                    title: 'Notification',
-                    subtitle: 'Notification configuration',
-                  ),
-                  Listtile(
-                    ontap: () {
-                      authController.signOutGoogle();
-                    },
-                    title: 'Logout',
-                    subtitle: '',
-                  )
-                ],
-              ))
-            ],
+                Expanded(
+                    child: ListView(
+                  children: [
+                    Listtile(
+                      ontap: () {
+                        translation.changeLocale();
+                      },
+                      title: 'language'.tr,
+                      subtitle: TranslationService().currentLocale ==
+                              TranslationService().enLocale
+                          ? 'English'
+                          : 'Indonesia',
+                    ),
+                    Listtile(
+                      ontap: () {},
+                      title: 'notification'.tr,
+                      subtitle: 'notifConfig'.tr,
+                    ),
+                    Listtile(
+                      ontap: () {
+                        authController.signOutGoogle();
+                      },
+                      title: 'logout'.tr,
+                      subtitle: '',
+                    )
+                  ],
+                ))
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
 

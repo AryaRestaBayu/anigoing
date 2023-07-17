@@ -38,18 +38,19 @@ class Navbar extends GetView<NavbarController> {
                   borderRadius: const BorderRadius.all(Radius.circular(40)),
                   child: Obx(
                     () => BottomNavigationBar(
-                      items: const [
+                      items: [
                         BottomNavigationBarItem(
-                            icon: Icon(Icons.home), label: 'Home'),
+                            icon: Icon(Icons.home), label: 'home'.tr),
                         BottomNavigationBarItem(
-                            icon: Icon(Icons.bookmark), label: 'My list'),
+                            icon: Icon(Icons.bookmark), label: 'myList'.tr),
                         BottomNavigationBarItem(
-                            icon: Icon(Icons.settings), label: 'Setting'),
+                            icon: Icon(Icons.settings), label: 'settings'.tr),
                       ],
                       currentIndex: controller.selectedIndex.value,
                       backgroundColor: Colors.black.withOpacity(0.20),
                       selectedItemColor: AppColor.primary,
                       unselectedItemColor: Colors.white,
+                      selectedLabelStyle: TextStyle(fontSize: 12),
                       showUnselectedLabels: false,
                       showSelectedLabels: true,
                       onTap: controller.selectedItem,
