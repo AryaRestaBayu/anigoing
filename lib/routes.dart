@@ -9,6 +9,7 @@ import 'package:ani_going/view/login_page.dart';
 import 'package:ani_going/view/navbar.dart';
 import 'package:ani_going/view/see_all_page.dart';
 import 'package:ani_going/view/signup_page.dart';
+
 import 'package:get/get.dart';
 
 class AppRoutes {

@@ -30,7 +30,7 @@ class Navbar extends GetView<NavbarController> {
             alignment: const Alignment(0.0, 0.9),
             child: Container(
               decoration: BoxDecoration(
-                  border: Border.all(color: PColor.primary),
+                  border: Border.all(color: AppColor.primary),
                   borderRadius: BorderRadius.circular(40)),
               width: sizeWidth * 0.70,
               height: sizeHeight * 0.10,
@@ -48,7 +48,7 @@ class Navbar extends GetView<NavbarController> {
                       ],
                       currentIndex: controller.selectedIndex.value,
                       backgroundColor: Colors.black.withOpacity(0.20),
-                      selectedItemColor: PColor.primary,
+                      selectedItemColor: AppColor.primary,
                       unselectedItemColor: Colors.white,
                       showUnselectedLabels: false,
                       showSelectedLabels: true,

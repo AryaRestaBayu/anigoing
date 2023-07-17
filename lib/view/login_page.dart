@@ -1,6 +1,7 @@
 import 'package:ani_going/controller/auth_controller.dart';
 import 'package:ani_going/routes.dart';
 import 'package:ani_going/services/color.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -50,7 +51,7 @@ class LoginPage extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,
-                      side: const BorderSide(color: PColor.primary),
+                      side: const BorderSide(color: AppColor.primary),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30)),
                       minimumSize: Size(sizeWidth * .80, sizeHeight * .08),
@@ -67,7 +68,8 @@ class LoginPage extends StatelessWidget {
                         Text(
                           'Continue with google',
                           style: TextStyle(
-                              color: PColor.accent, fontSize: sizeWidth * 0.03),
+                              color: AppColor.accent,
+                              fontSize: sizeWidth * 0.03),
                         ),
                         SizedBox(
                           width: sizeWidth * 0.08,
@@ -81,7 +83,7 @@ class LoginPage extends StatelessWidget {
                       SizedBox(
                         width: sizeWidth * 0.35,
                         child: const Divider(
-                          color: PColor.primary,
+                          color: AppColor.primary,
                         ),
                       ),
                       Padding(
@@ -90,14 +92,14 @@ class LoginPage extends StatelessWidget {
                         child: Text(
                           'or',
                           style: TextStyle(
-                              color: PColor.accent,
+                              color: AppColor.accent,
                               fontSize: sizeWidth * 0.045),
                         ),
                       ),
                       SizedBox(
                         width: sizeWidth * 0.35,
                         child: const Divider(
-                          color: PColor.primary,
+                          color: AppColor.primary,
                         ),
                       ),
                     ],
@@ -108,24 +110,24 @@ class LoginPage extends StatelessWidget {
                       height: sizeHeight * .08,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          border: Border.all(color: PColor.primary)),
+                          border: Border.all(color: AppColor.primary)),
                       padding: EdgeInsets.only(
                         right: sizeWidth * .03,
                         left: sizeWidth * .03,
                       ),
                       child: TextField(
                           controller: emailController,
-                          cursorColor: PColor.primary,
+                          cursorColor: AppColor.primary,
                           style: const TextStyle(color: Colors.white),
                           textInputAction: TextInputAction.next,
                           decoration: InputDecoration(
                             hintText: 'Email',
                             hintStyle: TextStyle(
-                                color: PColor.accent,
+                                color: AppColor.accent,
                                 fontSize: sizeWidth * .04),
                             prefixIcon: Icon(
                               Icons.email_outlined,
-                              color: PColor.accent,
+                              color: AppColor.accent,
                               size: sizeWidth * .07,
                             ),
                             border: InputBorder.none,
@@ -138,24 +140,24 @@ class LoginPage extends StatelessWidget {
                       height: sizeHeight * .08,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          border: Border.all(color: PColor.primary)),
+                          border: Border.all(color: AppColor.primary)),
                       padding: EdgeInsets.only(
                         left: sizeWidth * .03,
                         right: sizeWidth * .03,
                       ),
                       child: Obx(() => TextField(
                           controller: passwordController,
-                          cursorColor: PColor.primary,
+                          cursorColor: AppColor.primary,
                           obscureText: isVisible.value ? true : false,
                           style: const TextStyle(color: Colors.white),
                           decoration: InputDecoration(
                             hintText: 'Password',
                             hintStyle: TextStyle(
-                                color: PColor.accent,
+                                color: AppColor.accent,
                                 fontSize: sizeWidth * .04),
                             prefixIcon: Icon(
                               Icons.lock_outline,
-                              color: PColor.accent,
+                              color: AppColor.accent,
                               size: sizeWidth * .07,
                             ),
                             suffixIcon: IconButton(
@@ -165,11 +167,11 @@ class LoginPage extends StatelessWidget {
                                 icon: isVisible.value == true
                                     ? const Icon(
                                         Icons.visibility_off_outlined,
-                                        color: PColor.accent,
+                                        color: AppColor.accent,
                                       )
                                     : const Icon(
                                         Icons.visibility_outlined,
-                                        color: PColor.accent,
+                                        color: AppColor.accent,
                                       )),
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.symmetric(
@@ -185,16 +187,16 @@ class LoginPage extends StatelessWidget {
                             passwordController.text.trim());
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: PColor.primary,
+                        backgroundColor: AppColor.primary,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30)),
                         minimumSize: Size(sizeWidth * .80, sizeHeight * .08),
                       ),
                       child: Text(
-                        'Login',
+                        'login',
                         style: TextStyle(
                             color: Colors.black, fontSize: sizeWidth * .04),
-                      ),
+                      ).tr(),
                     ),
                   ),
                   Padding(
@@ -202,7 +204,7 @@ class LoginPage extends StatelessWidget {
                     child: const Center(
                       child: Text(
                         'Forgot Password?',
-                        style: TextStyle(color: PColor.primary, fontSize: 14),
+                        style: TextStyle(color: AppColor.primary, fontSize: 14),
                       ),
                     ),
                   ),
@@ -211,13 +213,14 @@ class LoginPage extends StatelessWidget {
                     children: [
                       const Text(
                         'Don`t have an account? ',
-                        style: TextStyle(color: PColor.accent, fontSize: 13),
+                        style: TextStyle(color: AppColor.accent, fontSize: 13),
                       ),
                       GestureDetector(
                         onTap: () => Get.offNamed(AppRoutes.signUpPage),
                         child: const Text(
                           'Sign Up',
-                          style: TextStyle(color: PColor.primary, fontSize: 13),
+                          style:
+                              TextStyle(color: AppColor.primary, fontSize: 13),
                         ),
                       )
                     ],

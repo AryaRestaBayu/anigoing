@@ -32,7 +32,7 @@ class MyListPage extends StatelessWidget {
                 height: sizeHeight * 0.07,
                 child: const Text(
                   'My List',
-                  style: TextStyle(color: PColor.primary, fontSize: 22),
+                  style: TextStyle(color: AppColor.primary, fontSize: 22),
                 ),
               ),
               Expanded(
@@ -98,19 +98,19 @@ class MyListPage extends StatelessWidget {
                                         Text(
                                           '${myList.episode.toString()} Episode',
                                           style: const TextStyle(
-                                            color: PColor.accent,
+                                            color: AppColor.accent,
                                           ),
                                         ),
                                         Text(
                                           myList.type,
                                           style: const TextStyle(
-                                            color: PColor.accent,
+                                            color: AppColor.accent,
                                           ),
                                         ),
                                         Text(
                                           '${myList.day}-${myList.month}-${myList.year}',
                                           style: const TextStyle(
-                                            color: PColor.accent,
+                                            color: AppColor.accent,
                                           ),
                                         ),
                                       ],

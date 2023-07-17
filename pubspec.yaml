@@ -30,6 +30,7 @@ environment:
 dependencies:
   cloud_firestore: ^4.8.1
   cupertino_icons: ^1.0.2
+  easy_localization: ^3.0.2
   firebase_auth: ^4.6.3
   firebase_core: ^2.14.0
   flutter:
@@ -40,6 +41,8 @@ dependencies:
   http: ^0.13.6
   icons_launcher: ^2.1.1
   pod_player: ^0.1.5
+  restart_app: ^1.2.1
+  shared_preferences: ^2.2.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -63,11 +66,9 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/AniGoing.png
-    - assets/images/logo.png
-    - assets/images/zero.jpg
-    - assets/images/google.png
-  #   - images/a_dot_ham.jpeg
+    - assets/images/
+    - assets/translation/
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

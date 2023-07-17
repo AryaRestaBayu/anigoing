@@ -81,13 +81,13 @@ class DetailAnimePage extends GetView<DetailAnimeController> {
                             width: sizeWidth * 0.12,
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                border: Border.all(color: PColor.primary)),
+                                border: Border.all(color: AppColor.primary)),
                             child: Obx(
                               () => Icon(
                                 myListController.isAdded.value == true
                                     ? Icons.bookmark_added
                                     : Icons.bookmark_add,
-                                color: PColor.accent,
+                                color: AppColor.accent,
                               ),
                             )),
                       ),
@@ -120,9 +120,9 @@ class DetailAnimePage extends GetView<DetailAnimeController> {
                                 padding: const EdgeInsets.only(
                                     right: 4, left: 4, top: 1, bottom: 1),
                                 decoration: BoxDecoration(
-                                  border: Border.all(color: PColor.primary),
+                                  border: Border.all(color: AppColor.primary),
                                   borderRadius: BorderRadius.circular(10),
-                                  color: PColor.secondary,
+                                  color: AppColor.secondary,
                                 ),
                                 child: Center(
                                   child: Text(
@@ -148,7 +148,7 @@ class DetailAnimePage extends GetView<DetailAnimeController> {
                             : controller.isOngoing.value
                                 ? controller.animeOngoing!.synopsis
                                 : controller.animeUpcoming!.synopsis,
-                        style: const TextStyle(color: PColor.accent),
+                        style: const TextStyle(color: AppColor.accent),
                       ),
                     ],
                   ),

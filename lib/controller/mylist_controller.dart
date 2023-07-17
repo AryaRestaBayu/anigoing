@@ -44,7 +44,7 @@ class MyListController extends GetxController {
   ) async {
     try {
       if (isAdded.value == true) {
-        Utilities.snackBar('Sudah ada di My List', PColor.error);
+        Utilities.snackBar('Sudah ada di My List', AppColor.error);
       } else if (isOngoing) {
         await collection.doc(animeOngoing!.title).set({
           'uid': currentUser.uid,
@@ -61,7 +61,7 @@ class MyListController extends GetxController {
           'type': animeOngoing.type,
         });
         isAdded.value = true;
-        Utilities.snackBar('Ditambahkan ke MyList', PColor.primary);
+        Utilities.snackBar('Ditambahkan ke MyList', AppColor.primary);
       } else {
         await collection.doc(animeUpcoming!.title).set({
           'uid': currentUser.uid,
@@ -78,22 +78,22 @@ class MyListController extends GetxController {
           'year': animeUpcoming.year,
         });
         isAdded.value = true;
-        Utilities.snackBar('Ditambahkan ke MyList', PColor.primary);
+        Utilities.snackBar('Ditambahkan ke MyList', AppColor.primary);
       }
     } catch (e) {
       print(e);
-      Utilities.snackBar(e.toString(), PColor.primary);
+      Utilities.snackBar(e.toString(), AppColor.primary);
     }
   }
 
   void deleteMyList(MyList? mylist) async {
     try {
       await collection.doc(mylist!.title).delete();
-      Utilities.snackBar('Dihapus dari MyList', PColor.primary);
+      Utilities.snackBar('Dihapus dari MyList', AppColor.primary);
       Get.back();
     } catch (e) {
       print(e);
-      Utilities.snackBar('Terjadi kesalahan', PColor.error);
+      Utilities.snackBar('Terjadi kesalahan', AppColor.error);
     }
   }
 }

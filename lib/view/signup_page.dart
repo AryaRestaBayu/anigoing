@@ -51,7 +51,7 @@ class SignUpPage extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,
-                      side: const BorderSide(color: PColor.primary),
+                      side: const BorderSide(color: AppColor.primary),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30)),
                       minimumSize: Size(sizeWidth * .80, sizeHeight * .08),
@@ -68,7 +68,8 @@ class SignUpPage extends StatelessWidget {
                         Text(
                           'Continue with google',
                           style: TextStyle(
-                              color: PColor.accent, fontSize: sizeWidth * 0.03),
+                              color: AppColor.accent,
+                              fontSize: sizeWidth * 0.03),
                         ),
                         SizedBox(
                           width: sizeWidth * 0.08,
@@ -82,7 +83,7 @@ class SignUpPage extends StatelessWidget {
                       SizedBox(
                         width: sizeWidth * 0.35,
                         child: const Divider(
-                          color: PColor.primary,
+                          color: AppColor.primary,
                         ),
                       ),
                       Padding(
@@ -91,14 +92,14 @@ class SignUpPage extends StatelessWidget {
                         child: Text(
                           'or',
                           style: TextStyle(
-                              color: PColor.accent,
+                              color: AppColor.accent,
                               fontSize: sizeWidth * 0.045),
                         ),
                       ),
                       SizedBox(
                         width: sizeWidth * 0.35,
                         child: const Divider(
-                          color: PColor.primary,
+                          color: AppColor.primary,
                         ),
                       ),
                     ],
@@ -109,24 +110,24 @@ class SignUpPage extends StatelessWidget {
                       height: sizeHeight * .08,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          border: Border.all(color: PColor.primary)),
+                          border: Border.all(color: AppColor.primary)),
                       padding: EdgeInsets.only(
                         right: sizeWidth * .03,
                         left: sizeWidth * .03,
                       ),
                       child: TextField(
                           controller: emailController,
-                          cursorColor: PColor.primary,
+                          cursorColor: AppColor.primary,
                           style: const TextStyle(color: Colors.white),
                           textInputAction: TextInputAction.next,
                           decoration: InputDecoration(
                             hintText: 'Email',
                             hintStyle: TextStyle(
-                                color: PColor.accent,
+                                color: AppColor.accent,
                                 fontSize: sizeWidth * .04),
                             prefixIcon: Icon(
                               Icons.email_outlined,
-                              color: PColor.accent,
+                              color: AppColor.accent,
                               size: sizeWidth * .07,
                             ),
                             border: InputBorder.none,
@@ -140,7 +141,7 @@ class SignUpPage extends StatelessWidget {
                       height: sizeHeight * .08,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          border: Border.all(color: PColor.primary)),
+                          border: Border.all(color: AppColor.primary)),
                       padding: EdgeInsets.only(
                         left: sizeWidth * .03,
                         right: sizeWidth * .03,
@@ -148,17 +149,17 @@ class SignUpPage extends StatelessWidget {
                       child: Obx(() => TextField(
                           controller: passwordController,
                           textInputAction: TextInputAction.next,
-                          cursorColor: PColor.primary,
+                          cursorColor: AppColor.primary,
                           obscureText: isVisible.value ? true : false,
                           style: const TextStyle(color: Colors.white),
                           decoration: InputDecoration(
                             hintText: 'Password',
                             hintStyle: TextStyle(
-                                color: PColor.accent,
+                                color: AppColor.accent,
                                 fontSize: sizeWidth * .04),
                             prefixIcon: Icon(
                               Icons.lock_outline,
-                              color: PColor.accent,
+                              color: AppColor.accent,
                               size: sizeWidth * .07,
                             ),
                             suffixIcon: GestureDetector(
@@ -169,7 +170,7 @@ class SignUpPage extends StatelessWidget {
                                   isVisible.value == true
                                       ? Icons.visibility_off_outlined
                                       : Icons.visibility_outlined,
-                                  color: PColor.accent,
+                                  color: AppColor.accent,
                                   size: sizeWidth * .07),
                             ),
                             border: InputBorder.none,
@@ -183,7 +184,7 @@ class SignUpPage extends StatelessWidget {
                       height: sizeHeight * .08,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          border: Border.all(color: PColor.primary)),
+                          border: Border.all(color: AppColor.primary)),
                       padding: EdgeInsets.only(
                         left: sizeWidth * .03,
                         right: sizeWidth * .03,
@@ -191,17 +192,17 @@ class SignUpPage extends StatelessWidget {
                       child: Obx(() => TextField(
                           controller: confirmPasswordController,
                           textInputAction: TextInputAction.done,
-                          cursorColor: PColor.primary,
+                          cursorColor: AppColor.primary,
                           obscureText: isVisible.value ? true : false,
                           style: const TextStyle(color: Colors.white),
                           decoration: InputDecoration(
                             hintText: 'Confirm Password',
                             hintStyle: TextStyle(
-                                color: PColor.accent,
+                                color: AppColor.accent,
                                 fontSize: sizeWidth * .04),
                             prefixIcon: Icon(
                               Icons.lock_outline,
-                              color: PColor.accent,
+                              color: AppColor.accent,
                               size: sizeWidth * .07,
                             ),
                             suffixIcon: GestureDetector(
@@ -212,7 +213,7 @@ class SignUpPage extends StatelessWidget {
                                   isVisible.value == true
                                       ? Icons.visibility_off_outlined
                                       : Icons.visibility_outlined,
-                                  color: PColor.accent,
+                                  color: AppColor.accent,
                                   size: sizeWidth * .07),
                             ),
                             border: InputBorder.none,
@@ -235,7 +236,7 @@ class SignUpPage extends StatelessWidget {
                             passwordController.text.trim());
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: PColor.primary,
+                        backgroundColor: AppColor.primary,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30)),
                         minimumSize: Size(sizeWidth * .80, sizeHeight * .08),
@@ -252,13 +253,14 @@ class SignUpPage extends StatelessWidget {
                     children: [
                       const Text(
                         'Already have an account? ',
-                        style: TextStyle(color: PColor.accent, fontSize: 13),
+                        style: TextStyle(color: AppColor.accent, fontSize: 13),
                       ),
                       GestureDetector(
                         onTap: () => Get.offNamed(AppRoutes.loginPage),
                         child: const Text(
                           'Login',
-                          style: TextStyle(color: PColor.primary, fontSize: 13),
+                          style:
+                              TextStyle(color: AppColor.primary, fontSize: 13),
                         ),
                       )
                     ],

@@ -34,7 +34,7 @@ class SeeAllPage extends StatelessWidget {
                 height: sizeHeight * 0.07,
                 child: Text(
                   isOngoing ? 'Ongoing' : 'Upcoming',
-                  style: const TextStyle(color: PColor.primary, fontSize: 22),
+                  style: const TextStyle(color: AppColor.primary, fontSize: 22),
                 ),
               ),
               Expanded(child: GetBuilder<AnimeApi>(builder: (controller) {
@@ -111,22 +111,22 @@ class SeeAllPage extends StatelessWidget {
                                           ? '${animeOngoing.episode} Episodes'
                                           : '${animeUpcoming.episode} Episodes',
                                       style: const TextStyle(
-                                        color: PColor.accent,
+                                        color: AppColor.accent,
                                       ),
                                     ),
                                     Text(
                                       isOngoing
                                           ? animeOngoing.type
                                           : animeUpcoming.type,
-                                      style:
-                                          const TextStyle(color: PColor.accent),
+                                      style: const TextStyle(
+                                          color: AppColor.accent),
                                     ),
                                     Text(
                                       isOngoing
                                           ? '${animeOngoing.day}-${animeOngoing.month}-${animeOngoing.year}'
                                           : '${animeUpcoming.day}-${animeUpcoming.month}-${animeUpcoming.year}',
-                                      style:
-                                          const TextStyle(color: PColor.accent),
+                                      style: const TextStyle(
+                                          color: AppColor.accent),
                                     ),
                                   ],
                                 ),

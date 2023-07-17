@@ -12,7 +12,7 @@ import '../services/color.dart';
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
-  final style = const TextStyle(fontSize: 20, color: PColor.primary);
+  final style = const TextStyle(fontSize: 20, color: AppColor.primary);
   final detailAnimeController = Get.find<DetailAnimeController>();
 
   @override
@@ -44,7 +44,7 @@ class HomePage extends StatelessWidget {
                   'AniGoing',
                   style: TextStyle(
                       fontSize: sizeWidth * 0.05,
-                      color: PColor.primary,
+                      color: AppColor.primary,
                       fontWeight: FontWeight.bold),
                 ),
               ),
@@ -74,7 +74,7 @@ class HomePage extends StatelessWidget {
                             },
                             child: const Text(
                               'See all ➤',
-                              style: TextStyle(color: PColor.primary),
+                              style: TextStyle(color: AppColor.primary),
                             ),
                           ),
                         ],
@@ -180,7 +180,7 @@ class HomePage extends StatelessWidget {
                                                           .withOpacity(0.8),
                                                       border: const Border(
                                                           top: BorderSide(
-                                                        color: PColor.primary,
+                                                        color: AppColor.primary,
                                                         width: 2,
                                                       ))),
                                                   child: Center(
@@ -230,7 +230,7 @@ class HomePage extends StatelessWidget {
                             },
                             child: const Text(
                               'See all ➤',
-                              style: TextStyle(color: PColor.primary),
+                              style: TextStyle(color: AppColor.primary),
                             ),
                           ),
                         ],
@@ -331,7 +331,7 @@ class HomePage extends StatelessWidget {
                                                           .withOpacity(0.8),
                                                       border: const Border(
                                                           top: BorderSide(
-                                                        color: PColor.primary,
+                                                        color: AppColor.primary,
                                                         width: 2,
                                                       ))),
                                                   child: Center(

@@ -1,4 +1,5 @@
 import 'package:ani_going/routes.dart';
+import 'package:ani_going/services/prefs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -16,6 +17,8 @@ class AuthController extends GetxController {
     );
     try {
       await FirebaseAuth.instance.signInWithCredential(credential);
+      SharePref().setPrefs(true);
+
       Get.offNamed(AppRoutes.navbar);
     } on FirebaseAuthException catch (e) {
       Get.snackbar(e.toString(), e.toString());
@@ -33,6 +36,7 @@ class AuthController extends GetxController {
                 'uid': value.user!.uid,
                 'email': email,
               }));
+      SharePref().setPrefs(true);
       Get.offNamed(AppRoutes.navbar);
     } on FirebaseAuthException catch (e) {
       Get.snackbar('SignUp failed', e.toString());
@@ -43,6 +47,7 @@ class AuthController extends GetxController {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
+      SharePref().setPrefs(true);
       Get.offNamed(AppRoutes.navbar);
     } on FirebaseAuthException catch (e) {
       Get.snackbar('SignIn failed', e.toString());
@@ -52,6 +57,7 @@ class AuthController extends GetxController {
   signOutGoogle() async {
     FirebaseAuth.instance.signOut();
     GoogleSignIn().signOut();
+    SharePref().removePrefs();
     Get.offNamed(AppRoutes.loginPage);
   }
 }

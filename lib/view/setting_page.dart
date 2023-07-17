@@ -27,7 +27,7 @@ class SettingPage extends StatelessWidget {
                 height: sizeHeight * 0.05,
                 child: const Text(
                   'Settings',
-                  style: TextStyle(color: PColor.primary, fontSize: 22),
+                  style: TextStyle(color: AppColor.primary, fontSize: 22),
                 ),
               ),
               Expanded(
@@ -87,12 +87,12 @@ class Listtile extends StatelessWidget {
                 ? null
                 : Text(
                     subtitle,
-                    style: TextStyle(color: PColor.accent),
+                    style: TextStyle(color: AppColor.accent),
                   ),
           ),
         ),
         const Divider(
-          color: PColor.accent,
+          color: AppColor.accent,
         ),
       ],
     );
