@@ -1,10 +1,9 @@
-import 'package:ani_going/controller/bindings/auth_binding.dart';
-import 'package:ani_going/controller/translations_controller.dart';
 import 'package:ani_going/routes.dart';
 import 'package:ani_going/services/prefs.dart';
-import 'package:ani_going/services/translations.dart';
-import 'package:ani_going/services/utilities.dart';
-import 'package:ani_going/services/color.dart';
+import 'package:ani_going/shared/binding/initial_binding.dart';
+import 'package:ani_going/translation/app_translation.dart';
+import 'package:ani_going/utils/custom_snackbar.dart';
+import 'package:ani_going/constant/AppColor.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,7 +12,6 @@ import 'package:get/get.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  Get.put(TranslationsController());
   bool isLogin = await SharePref().getPrefs();
   bool isEn = await SharePref().getLocale();
   SystemChrome.setSystemUIOverlayStyle(
@@ -25,6 +23,10 @@ void main() async {
       systemNavigationBarIconBrightness: Brightness.light,
     ),
   );
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(MyApp(
     isLogin: isLogin,
     isEn: isEn,
@@ -39,17 +41,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      translations: TranslationService(),
-      locale: isEn == true
-          ? TranslationService().enLocale
-          : TranslationService().idLocale,
-      fallbackLocale: TranslationService().enLocale,
+      translations: AppTranslation(),
+      locale:
+          isEn == true ? AppTranslation().enLocale : AppTranslation().idLocale,
+      fallbackLocale: AppTranslation().enLocale,
       theme:
           ThemeData(fontFamily: 'NunitoSans', highlightColor: AppColor.primary),
       debugShowCheckedModeBanner: false,
-      scaffoldMessengerKey: Utilities.messengerKey,
+      scaffoldMessengerKey: CustomSnackbar.messengerKey,
       initialRoute: isLogin == true ? AppRoutes.navbar : AppRoutes.loginPage,
-      initialBinding: AuthBinding(),
+      initialBinding: InitialBinding(),
       getPages: AppRoutes.routes,
     );
   }
