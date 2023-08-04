@@ -34,13 +34,11 @@ dependencies:
   firebase_core: ^2.14.0
   flutter:
     sdk: flutter
-  font_awesome_flutter: ^10.4.0
   get: ^4.6.5
   google_sign_in: ^6.1.4
   http: ^0.13.6
   icons_launcher: ^2.1.1
   pod_player: ^0.1.5
-  restart_app: ^1.2.1
   shared_preferences: ^2.2.0
 
 dev_dependencies:

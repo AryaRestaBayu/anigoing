@@ -7,8 +7,10 @@ AniGoing is an application that provides list ongoing anime on the season, and t
 
 ## Feature
 - Authentication
-- See all ongoing or upcoming anime
+- See ongoing or upcoming anime
+- Play the anime trailer
 - Add anime to My List
+- Change language
 
 ## Screenshot
 
@@ -19,11 +21,15 @@ AniGoing is an application that provides list ongoing anime on the season, and t
 | <img src="app_screenshot/see_all.jpg" width="250"/> | <img src="app_screenshot/detail.jpg" width="250"/> | <img src="app_screenshot/mylist.jpg" width="250"/> |
 
 
-## What i use
+## What i`ve implemented
 - Getx as state manager
-- Architectur MVC
+- MVC Architecture
+- Modularization
+- Reusable widget
+- Localization with Getx
+- Consume API from https://jikan.moe/
 - UI/UX reference https://www.behance.net/gallery/170123953/Anime-XD-(Anime-Streaming-App)
-- Consume API from https://api.jikan.moe/v4/seasons/now and https://api.jikan.moe/v4/seasons/upcoming
-- Firebase auth and firestore
-- Player library from https://pub.dev/
+- Firebase auth, firestore, google sign in
+- Local storage shared preferences
+- Player library from https://pub.dev/packages/pod_player
 - And other libiraries from https://pub.dev/
