@@ -1,12 +1,12 @@
 part of auth;
 
 class CustomButton {
-  static ElevatedButton signInWithGoogle(Future onTap) {
+  static ElevatedButton signInWithGoogle({required Function() onTap}) {
     double sizeWidth = Get.width;
     double sizeHeight = Get.height;
     return ElevatedButton(
       onPressed: () {
-        onTap;
+        onTap();
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.transparent,
@@ -37,14 +37,14 @@ class CustomButton {
   }
 
   static ElevatedButton signInwithEmail({
-    required void ontap,
+    required Function() ontap,
     required String text,
   }) {
     double sizeWidth = Get.width;
     double sizeHeight = Get.height;
     return ElevatedButton(
       onPressed: () {
-        ontap;
+        ontap();
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColor.primary,

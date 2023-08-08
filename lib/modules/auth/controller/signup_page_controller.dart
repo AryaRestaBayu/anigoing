@@ -20,10 +20,6 @@ class SignUpPageController extends GetxController {
     );
   }
 
-  Future<void> signInWithGoogle() {
-    return authController.signInWithGoogle();
-  }
-
   void changeVisibility() {
     isVisible.value = !isVisible.value;
   }

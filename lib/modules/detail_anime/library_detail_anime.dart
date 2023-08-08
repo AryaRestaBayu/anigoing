@@ -13,6 +13,10 @@ import 'package:ani_going/shared/controller/mylist_controller.dart';
 //view
 part 'package:ani_going/modules/detail_anime/view/detail_anime_page.dart';
 
+//widget
+part 'package:ani_going/modules/detail_anime/widget/button_add.dart';
+part 'package:ani_going/modules/detail_anime/widget/genre.dart';
+
 //controller
 part 'package:ani_going/modules/detail_anime/controller/player_controller.dart';
 part 'package:ani_going/modules/detail_anime/controller/detail_anime_page_controller.dart';
