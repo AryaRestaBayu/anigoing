@@ -30,6 +30,6 @@ AniGoing is an application that provides list ongoing anime on the season, and t
 - Consume API from https://jikan.moe/
 - UI/UX reference https://www.behance.net/gallery/170123953/Anime-XD-(Anime-Streaming-App)
 - Firebase auth, firestore, google sign in
-- Local storage shared preferences
+- Local storage shared preferences and hive
 - Player library from https://pub.dev/packages/pod_player
 - And other libiraries from https://pub.dev/

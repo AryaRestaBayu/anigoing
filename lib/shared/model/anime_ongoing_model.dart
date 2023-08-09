@@ -1,15 +1,41 @@
-class AnimeOngoing {
-  String imageUrl;
-  String title;
-  String synopsis;
-  List genre;
-  String trailer;
-  dynamic score;
-  int episode;
-  String type;
-  int day;
-  int month;
-  int year;
+import 'package:hive/hive.dart';
+
+part 'anime_ongoing_model.g.dart';
+
+@HiveType(typeId: 1)
+class AnimeOngoing extends HiveObject {
+  @HiveField(0)
+  final String imageUrl;
+
+  @HiveField(1)
+  final String title;
+
+  @HiveField(2)
+  final String synopsis;
+
+  @HiveField(3)
+  final List<dynamic> genre;
+
+  @HiveField(4)
+  final String trailer;
+
+  @HiveField(5)
+  final double score;
+
+  @HiveField(6)
+  final int episode;
+
+  @HiveField(7)
+  final String type;
+
+  @HiveField(8)
+  final int day;
+
+  @HiveField(9)
+  final int month;
+
+  @HiveField(10)
+  final int year;
 
   AnimeOngoing({
     required this.imageUrl,

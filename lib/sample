@@ -1,0 +1,43 @@
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:async';
+import 'package:hive/hive.dart';
+import 'hive_boxes.dart';
+import 'anime_model.dart';
+
+class AnimeController extends GetxController {
+  var animeList = <AnimeModel>[].obs;
+  var lastApiCallTime = DateTime(2000); // Inisialisasi dengan waktu yang lalu
+
+  @override
+  void onInit() {
+    super.onInit();
+    loadAnimeData();
+  }
+
+  Future<void> loadAnimeData() async {
+    final currentTime = DateTime.now();
+    if (currentTime.difference(lastApiCallTime).inHours >= 1) {
+      lastApiCallTime = currentTime;
+
+      final response = await http.get(Uri.parse('URL_API_ANIME'));
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body) as List<dynamic>;
+
+        final animeBox = await Hive.openBox<AnimeModel>(HiveBoxes.animeBox);
+        animeBox.clear(); // Hapus data sebelum menyimpan yang baru
+
+        for (final anime in data) {
+          final animeModel = AnimeModel(anime['title'], anime['score']);
+          animeList.add(animeModel);
+          animeBox.add(animeModel);
+        }
+      }
+    } else {
+      // Mengambil data dari Hive jika pemanggilan API sedang dijeda
+      final animeBox = await Hive.openBox<AnimeModel>(HiveBoxes.animeBox);
+      animeList.addAll(animeBox.values);
+    }
+  }
+}

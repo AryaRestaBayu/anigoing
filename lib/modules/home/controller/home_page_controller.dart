@@ -9,6 +9,8 @@ class HomePageController extends GetxController {
 
   @override
   void onInit() {
+    Hive.registerAdapter(AnimeOngoingAdapter());
+    Hive.registerAdapter(AnimeUpcomingAdapter());
     getAnime();
     super.onInit();
   }
@@ -21,6 +23,5 @@ class HomePageController extends GetxController {
     } catch (e) {
       print(e);
     }
-    ;
   }
 }
