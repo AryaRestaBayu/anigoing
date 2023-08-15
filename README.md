@@ -1,5 +1,7 @@
 # ⚠️ Still on progress ⚠️ 
 
+Some anime may error when playing the trailer due to the video URL is in private or other restrictions 
+
 # AniGoing
 
 ## Description
@@ -20,6 +22,9 @@ AniGoing is an application that provides list ongoing anime on the season, and t
 | See All        | Detail    | My List        |
 | <img src="app_screenshot/see_all.jpg" width="250"/> | <img src="app_screenshot/detail.jpg" width="250"/> | <img src="app_screenshot/mylist.jpg" width="250"/> |
 
+## Demo
+
+https://youtube.com/shorts/bWHusHMI3GE?feature=share
 
 ## What i`ve implemented
 - Getx as state manager
