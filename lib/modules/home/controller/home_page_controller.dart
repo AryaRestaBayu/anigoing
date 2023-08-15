@@ -21,6 +21,5 @@ class HomePageController extends GetxController {
     } catch (e) {
       print(e);
     }
-    ;
   }
 }

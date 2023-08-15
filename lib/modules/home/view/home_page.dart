@@ -7,8 +7,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double sizeWidth = MediaQuery.of(context).size.width;
-    double sizeHeight = MediaQuery.of(context).size.height;
+    double sizeWidth = Get.width;
+    double sizeHeight = Get.height;
     return Scaffold(
       backgroundColor: Colors.black,
       body: CustomScrollView(
@@ -57,8 +57,13 @@ class HomePage extends StatelessWidget {
                                 sizeHeight: sizeHeight,
                                 sizeWidth: sizeWidth);
                           }
-                          return const Center(
-                            child: CircularProgressIndicator(),
+                          return Center(
+                            child: SizedBox(
+                              height: sizeHeight * 0.30,
+                              child: Center(
+                                child: SharedWidget.widgetLoading(),
+                              ),
+                            ),
                           );
                         }),
                     Header(style: style, ongoing: false),
@@ -71,8 +76,13 @@ class HomePage extends StatelessWidget {
                                 sizeHeight: sizeHeight,
                                 sizeWidth: sizeWidth);
                           }
-                          return const Center(
-                            child: CircularProgressIndicator(),
+                          return Center(
+                            child: SizedBox(
+                              height: sizeHeight * 0.30,
+                              child: Center(
+                                child: SharedWidget.widgetLoading(),
+                              ),
+                            ),
                           );
                         }),
                   ],

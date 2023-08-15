@@ -32,4 +32,32 @@ class SharePref {
     bool? isEn = prefs.getBool('isEn');
     return isEn ?? true;
   }
+
+  Future<void> saveLastApiCallTimeOngoing(DateTime time) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('lastApiCallTimeOngoing', time.toIso8601String());
+  }
+
+  Future<DateTime?> getLastApiCallTimeOngoing() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String isoTime = prefs.getString('lastApiCallTimeOngoing') ?? '';
+    if (isoTime.isNotEmpty) {
+      return DateTime.parse(isoTime);
+    }
+    return null; // Nilai default jika belum ada penyimpanan sebelumnya
+  }
+
+  Future<void> saveLastApiCallTimeUpcoming(DateTime time) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('lastApiCallTimeUpcoming', time.toIso8601String());
+  }
+
+  Future<DateTime?> getLastApiCallTimeUpcoming() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String isoTime = prefs.getString('lastApiCallTimeUpcoming') ?? '';
+    if (isoTime.isNotEmpty) {
+      return DateTime.parse(isoTime);
+    }
+    return null; // Nilai default jika belum ada penyimpanan sebelumnya
+  }
 }

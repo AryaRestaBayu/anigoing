@@ -1,6 +1,8 @@
 import 'package:ani_going/routes.dart';
 import 'package:ani_going/services/prefs.dart';
 import 'package:ani_going/shared/binding/initial_binding.dart';
+import 'package:ani_going/shared/model/anime_ongoing_model.dart';
+import 'package:ani_going/shared/model/anime_upcoming_model.dart';
 import 'package:ani_going/translation/app_translation.dart';
 import 'package:ani_going/utils/custom_snackbar.dart';
 import 'package:ani_going/constant/AppColor.dart';
@@ -8,10 +10,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await Hive.initFlutter();
+  Hive.registerAdapter(AnimeOngoingAdapter());
+  Hive.registerAdapter(AnimeUpcomingAdapter());
   bool isLogin = await SharePref().getPrefs();
   bool isEn = await SharePref().getLocale();
   SystemChrome.setSystemUIOverlayStyle(

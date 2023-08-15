@@ -8,9 +8,12 @@ import 'package:ani_going/shared/model/anime_ongoing_model.dart';
 import 'package:ani_going/shared/model/anime_upcoming_model.dart';
 import 'package:ani_going/routes.dart';
 import 'package:ani_going/services/anime_api.dart';
+import 'package:ani_going/shared/model/mylist_model.dart';
+import 'package:ani_going/shared/widget/shared_widget.dart';
 import 'package:ani_going/translation/app_translation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 
 //view
 part 'package:ani_going/modules/home/view/home_page.dart';

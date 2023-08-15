@@ -38,7 +38,9 @@ class LoginPage extends GetView<LoginPageController> {
                     ),
                     //google
                     CustomButton.signInWithGoogle(
-                      controller.signInWithGoogle(),
+                      onTap: () {
+                        controller.authController.signInWithGoogle();
+                      },
                     ),
                     const CustomDivider(),
                     //email
@@ -63,7 +65,9 @@ class LoginPage extends GetView<LoginPageController> {
                     Padding(
                         padding: EdgeInsets.only(top: sizeHeight * .02),
                         child: CustomButton.signInwithEmail(
-                          ontap: controller.signInWithEmail(),
+                          ontap: () {
+                            controller.signInWithEmail();
+                          },
                           text: AppTranslation.login,
                         )),
                     Padding(
